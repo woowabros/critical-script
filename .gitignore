@@ -9,3 +9,5 @@ dist
 dist-ssr
 node_modules
 .eslintcache
+/packages/vite-plugin-critical-script/README.md
+/packages/vite-plugin-critical-script/LICENSE
