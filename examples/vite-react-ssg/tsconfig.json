@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "noEmit": true,
+    "target": "ESNext",
+    "types": ["@woowabros/vite-plugin-critical-script"]
+  },
+  "include": ["src", "vite.config.ts"]
+}

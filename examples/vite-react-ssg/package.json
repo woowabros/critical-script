@@ -1,0 +1,25 @@
+{
+  "name": "vite-react-ssg-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm build:client && pnpm build:server && pnpm prerender",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "prerender": "node prerender.js",
+    "preview": "vite preview --outDir dist/client",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@woowabros/vite-plugin-critical-script": "0.1.0",
+    "typescript": "5.9.3",
+    "vite": "6.4.3"
+  }
+}

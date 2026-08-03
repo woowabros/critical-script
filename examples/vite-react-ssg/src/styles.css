@@ -1,0 +1,129 @@
+/* Colour and typography tokens, in both light and dark. */
+
+:root {
+  color-scheme: light;
+
+  --surface-1: #fcfcfb;
+  --plane: #f9f9f7;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --muted: #898781;
+  --ring: rgba(11, 11, 11, 0.1);
+  --status-critical: #d03b3b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
+
+    --surface-1: #1a1a19;
+    --plane: #0d0d0d;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --muted: #898781;
+    --ring: rgba(255, 255, 255, 0.1);
+    --status-critical: #d03b3b;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --surface-1: #1a1a19;
+  --plane: #0d0d0d;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --muted: #898781;
+  --ring: rgba(255, 255, 255, 0.1);
+  --status-critical: #d03b3b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--text-primary);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+}
+
+.page h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.lede {
+  margin: 14px 0 32px;
+  color: var(--text-secondary);
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid var(--ring);
+  border-radius: 12px;
+  background: var(--surface-1);
+}
+
+.card h2 {
+  margin: 0 0 14px;
+  font-size: 17px;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.card ul {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.pending,
+.problem {
+  margin: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--ring);
+  border-radius: 12px;
+  background: var(--surface-1);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.problem {
+  border-color: var(--status-critical);
+  color: var(--text-secondary);
+}

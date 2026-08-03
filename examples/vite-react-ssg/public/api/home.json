@@ -1,0 +1,9 @@
+{
+  "title": "How this content arrived",
+  "heroImageUrl": "/img/og.png",
+  "items": [
+    "home.critical.ts was compiled by esbuild at build time",
+    "The compiled script was inlined into this page's HTML",
+    "It started this request before the bundle was parsed"
+  ]
+}
