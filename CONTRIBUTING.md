@@ -6,12 +6,14 @@ critical-script에 관심을 가져 주셔서 감사합니다. 이 문서는 프
 
 ### 사전 요구 사항
 
-이 프로젝트는 공급망 보안을 위해 `package.json`의 `devEngines` 필드로 도구 버전을 정확히 고정합니다.
+이 프로젝트는 공급망 보안을 위해 `package.json`에서 도구 버전을 정확히 고정합니다.
 
-- Node.js **24.15.0**
-- pnpm **11.1.2**
+- Node.js **24.15.0** — `devEngines.runtime` 필드
+- pnpm **11.1.2** — `packageManager` 필드
 
-Node.js는 직접 설치하지 **않아도** 됩니다. pnpm 11 이상이 설치되어 있기만 하면, `pnpm install`이 `devEngines`를 읽어 위에 명시된 정확한 Node.js와 pnpm 버전을 자동으로 다운로드합니다(`onFail: "download"`). 체크섬은 `pnpm-lock.yaml`에 기록됩니다.
+Node.js는 직접 설치하지 **않아도** 됩니다. pnpm 11 이상이 설치되어 있기만 하면, `pnpm install`이 두 필드를 읽어 위에 명시된 정확한 버전을 자동으로 다운로드합니다. 체크섬은 `pnpm-lock.yaml`에 기록됩니다.
+
+pnpm 버전은 `devEngines.packageManager`가 아니라 `packageManager` 필드로 고정합니다. `devEngines.packageManager`를 쓰면 npm 을 실행할 때마다 `EBADDEVENGINES` 오류가 나서 npm CLI 를 쓸 수 없는데, npm 레지스트리 배포에는 npm CLI 가 필요합니다.
 
 ### 설치 절차
 
