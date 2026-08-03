@@ -27,10 +27,19 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
+      - name: Verify toolchain
+        run: node -v && npm -v
+
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm -r build
 
-      - run: pnpm -r publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Pack
+        working-directory: packages/vite-plugin-critical-script
+        run: pnpm pack --pack-destination "$RUNNER_TEMP"
+
+      - name: Stage publish
+        run: npm stage publish "$RUNNER_TEMP"/*.tgz
+
+      - name: List staged packages
+        run: npm stage list @woowabros/vite-plugin-critical-script
