@@ -1,0 +1,45 @@
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify toolchain
+        run: node -v && npm -v
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm -r build
+
+      - name: Pack
+        working-directory: packages/vite-plugin-critical-script
+        run: pnpm pack --pack-destination "$RUNNER_TEMP"
+
+      - name: Stage publish
+        run: npm stage publish "$RUNNER_TEMP"/*.tgz
+
+      - name: List staged packages
+        run: npm stage list @woowabros/vite-plugin-critical-script

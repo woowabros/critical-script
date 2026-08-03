@@ -35,7 +35,8 @@
     "typecheck": "tsc --noEmit",
     "build": "tsdown",
     "lint": "eslint --ext .ts,.tsx .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepack": "node scripts/pack-assets.mjs prepare"
   },
   "exports": {
     ".": {
