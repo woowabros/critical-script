@@ -1,6 +1,9 @@
 packages:
   - packages/*
 
+allowBuilds:
+  esbuild: true
+
 catalog:
   '@types/node': 24.13.2
   esbuild: 0.27.2
