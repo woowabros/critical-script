@@ -1,0 +1,65 @@
+/* Shared design tokens. Loaded by Starlight pages and by the standalone benchmark page,
+   so both surfaces share one palette, one type scale, and one set of radii. */
+
+:root {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Pretendard Variable', Pretendard, 'Inter', system-ui, 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'JetBrains Mono', 'Menlo', monospace;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-full: 999px;
+
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Dark is the default surface. */
+  --surface-0: #0a0c10;
+  --surface-1: #10131a;
+  --surface-2: #161a23;
+  --surface-3: #1e232e;
+  --line: #262c38;
+  --line-strong: #333b4a;
+
+  --ink-1: #f2f5f9;
+  --ink-2: #b8c1d1;
+  --ink-3: #7f8a9c;
+
+  --brand: #2dd4bf;
+  --brand-strong: #5eead4;
+  --brand-dim: #0f766e;
+  --brand-wash: rgb(45 212 191 / 12%);
+
+  --warn: #fbbf24;
+  --slow: #f87171;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-md: 0 8px 24px -8px rgb(0 0 0 / 60%);
+  --shadow-lg: 0 24px 60px -24px rgb(0 0 0 / 70%);
+}
+
+:root[data-theme='light'] {
+  --surface-0: #ffffff;
+  --surface-1: #f8fafc;
+  --surface-2: #f1f5f9;
+  --surface-3: #e8eef5;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+
+  --ink-1: #0b1220;
+  --ink-2: #45536b;
+  --ink-3: #6b7a90;
+
+  --brand: #0d9488;
+  --brand-strong: #0f766e;
+  --brand-dim: #99f6e4;
+  --brand-wash: rgb(13 148 136 / 10%);
+
+  --warn: #b45309;
+  --slow: #dc2626;
+
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 8%);
+  --shadow-md: 0 8px 24px -10px rgb(15 23 42 / 18%);
+  --shadow-lg: 0 24px 60px -28px rgb(15 23 42 / 24%);
+}

@@ -35,3 +35,30 @@ jobs:
       - run: pnpm -r test
 
       - run: pnpm -r build
+
+  # The documentation site is its own pnpm project, outside the workspace, so
+  # "pnpm -r" above does not reach it.
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter @woowabros/vite-plugin-critical-script build
+
+      - run: pnpm install --frozen-lockfile
+        working-directory: docs/critical-script
+
+      - run: pnpm typecheck
+        working-directory: docs/critical-script
+
+      - run: pnpm build
+        working-directory: docs/critical-script

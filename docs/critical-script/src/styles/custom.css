@@ -1,0 +1,260 @@
+/* Starlight theme. Maps the shared tokens onto Starlight's own variables, then
+   tightens the parts of the default theme that read as dated: flat surfaces,
+   hard hairlines, cramped sidebar, and unstyled hero. */
+
+:root {
+  --sl-font: var(--font-sans);
+  --sl-font-mono: var(--font-mono);
+
+  --sl-color-accent-low: var(--brand-dim);
+  --sl-color-accent: var(--brand);
+  --sl-color-accent-high: var(--brand-strong);
+
+  --sl-color-white: var(--ink-1);
+  --sl-color-gray-1: var(--ink-1);
+  --sl-color-gray-2: var(--ink-2);
+  --sl-color-gray-3: var(--ink-3);
+  --sl-color-gray-4: var(--line-strong);
+  --sl-color-gray-5: var(--line);
+  --sl-color-gray-6: var(--surface-2);
+  --sl-color-gray-7: var(--surface-3);
+  --sl-color-black: var(--surface-0);
+
+  --sl-color-bg: var(--surface-0);
+  --sl-color-bg-nav: color-mix(in oklab, var(--surface-0) 82%, transparent);
+  --sl-color-bg-sidebar: var(--surface-0);
+  --sl-color-bg-inline-code: var(--surface-2);
+  --sl-color-hairline: var(--line);
+  --sl-color-hairline-light: var(--line);
+  --sl-color-hairline-shade: var(--line);
+
+  --sl-color-text: var(--ink-2);
+  --sl-color-text-accent: var(--brand);
+  --sl-color-text-invert: var(--surface-0);
+
+  --sl-nav-height: 4rem;
+  --sl-content-width: 48rem;
+  --sl-line-height: 1.75;
+}
+
+:root[data-theme='light'] {
+  --sl-color-text-invert: #ffffff;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.011em;
+}
+
+/* Glassy sticky header instead of a flat bar with a hard bottom rule. */
+.header {
+  backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-pane {
+  border-inline-end: 1px solid var(--line);
+}
+
+/* Sidebar: pill-shaped active state, quieter inactive rows. */
+.sidebar-content a {
+  border-radius: var(--radius-sm);
+  transition:
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease);
+}
+
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background: var(--brand-wash);
+  border-color: transparent;
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+
+.sidebar-content summary {
+  font-size: var(--sl-text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Headings: tighter tracking, clearer hierarchy. */
+.sl-markdown-content :is(h1, h2, h3, h4) {
+  color: var(--ink-1);
+  letter-spacing: -0.02em;
+}
+
+.sl-markdown-content h2 {
+  border-top: 1px solid var(--line);
+  margin-top: 2.75rem;
+  padding-top: 1.75rem;
+}
+
+.sl-markdown-content h2:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* Tables and code get real surfaces rather than bare borders. */
+.sl-markdown-content table {
+  border: 1px solid var(--line);
+  border-collapse: separate;
+  border-radius: var(--radius-md);
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.sl-markdown-content :is(th, td) {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 0.9rem;
+}
+
+.sl-markdown-content thead th {
+  background: var(--surface-2);
+  font-size: var(--sl-text-sm);
+  letter-spacing: 0.02em;
+  text-align: start;
+}
+
+.sl-markdown-content tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.sl-markdown-content .expressive-code .frame {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.sl-markdown-content :not(pre) > code {
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+}
+
+.sl-markdown-content blockquote {
+  border-inline-start: 2px solid var(--brand);
+  color: var(--ink-2);
+}
+
+/* Landing page. A quiet glow behind the hero instead of a bare centred column. */
+.hero {
+  padding-block: clamp(2rem, 7vw, 5rem);
+  position: relative;
+}
+
+.hero::before {
+  background: radial-gradient(58% 62% at 50% 0%, var(--brand-wash), transparent 70%);
+  content: '';
+  inset: -6rem -50% auto;
+  position: absolute;
+  z-index: -1;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+}
+
+.hero .tagline {
+  color: var(--ink-2);
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  margin-inline: auto;
+  max-width: 42rem;
+}
+
+.hero .actions {
+  margin-top: 2rem;
+}
+
+.hero a.action {
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+  padding: 0.7rem 1.35rem;
+  transition:
+    transform 0.18s var(--ease),
+    box-shadow 0.18s var(--ease);
+}
+
+.hero a.action:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.hero a.action.minimal {
+  border: 1px solid var(--line-strong);
+  box-shadow: none;
+}
+
+/* Cards on the landing page. */
+.card {
+  background: linear-gradient(180deg, var(--surface-1), var(--surface-0));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card .title {
+  color: var(--ink-1);
+  letter-spacing: -0.015em;
+}
+
+.card .icon {
+  background: var(--brand-wash);
+  border: 1px solid color-mix(in oklab, var(--brand) 30%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--brand-strong);
+  padding: 0.4rem;
+}
+
+/* Asides, pagination, footer. */
+.starlight-aside {
+  border-radius: var(--radius-md);
+  border-inline-start-width: 2px;
+}
+
+.pagination-links a {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  transition:
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.pagination-links a:hover {
+  border-color: var(--brand);
+  transform: translateY(-1px);
+}
+
+/* Search dialog. */
+dialog[aria-label] {
+  border-radius: var(--radius-lg);
+}
+
+/* A sidebar link that leaves the docs layout deserves a hint that it is a demo. */
+.sidebar-content a[href$='/benchmark/']::after {
+  background: var(--brand-wash);
+  border-radius: var(--radius-full);
+  color: var(--brand-strong);
+  content: 'live';
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-inline-start: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  vertical-align: 0.05em;
+}
