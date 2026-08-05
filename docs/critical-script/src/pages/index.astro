@@ -1,0 +1,47 @@
+---
+// Every documentation page lives under a locale prefix, so nothing is generated at
+// the site root. This page fills that gap: it sends visitors to their language when
+// the browser asks for Korean, and to English otherwise.
+
+const base = import.meta.env.BASE_URL
+const fallback = `${base}en/`
+const korean = `${base}ko/`
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+    <link rel="canonical" href={fallback} />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <title>critical-script</title>
+    <script is:inline define:vars={{ fallback, korean }}>
+      const tags = navigator.languages ?? [navigator.language]
+      const prefersKorean = tags.some((tag) => String(tag).toLowerCase().startsWith('ko'))
+
+      location.replace(prefersKorean ? korean : fallback)
+    </script>
+    <style>
+      body {
+        background: #222222;
+        color: #c2c8c8;
+        font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        display: grid;
+        margin: 0;
+        min-height: 100vh;
+        place-content: center;
+        text-align: center;
+      }
+
+      a {
+        color: #0cefd3;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <a href={fallback}>English</a> · <a href={korean}>한국어</a>
+    </p>
+  </body>
+</html>

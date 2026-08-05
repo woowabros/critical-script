@@ -19,11 +19,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24.15.0
           cache: pnpm
@@ -41,8 +41,9 @@ jobs:
       - run: pnpm build
         working-directory: docs/critical-script
 
-      - uses: actions/configure-pages@v6
-
+      # No configure-pages step: Pages is already set to build from GitHub Actions, and
+      # the base path is fixed in astro.config.ts, so there is nothing to look up. Keeping
+      # it out lets this job stay on contents:read.
       - uses: actions/upload-pages-artifact@v5
         with:
           path: docs/critical-script/dist
