@@ -1,0 +1,15 @@
+# This example is deliberately outside the repository workspace, so its
+# dependencies never reach the root lockfile or the published SBOM. This file
+# makes the directory its own pnpm root, so a plain "pnpm install" here
+# installs the example rather than the repository.
+packages: []
+
+allowBuilds:
+  esbuild: true
+
+# Third-party packages must have been published for two days before they can be
+# installed. The plugin this example demonstrates is exempt, so a fresh release
+# can be verified here immediately.
+minimumReleaseAge: 2880
+minimumReleaseAgeExclude:
+  - '@woowabros/vite-plugin-critical-script'
