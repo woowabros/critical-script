@@ -48,12 +48,15 @@ export default function DemoScreen({ variant }: Props): ReactElement {
   const [metrics, setMetrics] = useState<DemoMetrics | null>(null)
   const [problem, setProblem] = useState<null | string>(null)
   const [locale, setLocale] = useState<Locale>('en')
+  const [framed, setFramed] = useState(false)
 
   useEffect(() => {
     let abandoned = false
     const { boot, latency, locale: pageLocale } = readSimulation()
 
     setLocale(pageLocale)
+    // Embedded in a benchmark panel, the surrounding page already prints these numbers.
+    setFramed(window.parent !== window)
 
     const run = async (): Promise<void> => {
       // Stands in for downloading, parsing, and hydrating a real application bundle.
@@ -154,7 +157,7 @@ export default function DemoScreen({ variant }: Props): ReactElement {
         </article>
       )}
 
-      {metrics !== null && (
+      {metrics !== null && !framed && (
         <dl className='demo-metrics'>
           <div>
             <dt>{strings.requestStart}</dt>

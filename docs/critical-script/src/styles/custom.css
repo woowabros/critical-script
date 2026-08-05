@@ -462,9 +462,11 @@ header.header {
   font-variant-numeric: tabular-nums;
 }
 
+/* Tall enough for the demo card at its longest, with headroom for font metrics that
+   differ per platform and locale, so the frame never scrolls. */
 .bp-frame {
   background: var(--surface-0);
-  block-size: 15rem;
+  block-size: 14rem;
 }
 
 .bp-frame iframe {
@@ -477,7 +479,10 @@ header.header {
 .bp-panel > footer {
   border-top: 1px solid var(--line);
   color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
   font-size: var(--sl-text-xs);
+  gap: 0.25rem 1rem;
   padding: 0.55rem 0.85rem;
 }
 

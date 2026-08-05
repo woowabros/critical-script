@@ -330,7 +330,7 @@ a:hover {
 
 .panel-frame {
   background: var(--surface-0);
-  block-size: 24rem;
+  block-size: 18rem;
   position: relative;
 }
 
@@ -494,10 +494,14 @@ a:hover {
   padding-inline-start: 1.1rem;
 }
 
-/* ---- The demo documents loaded inside the panels ---- */
+/* ---- The demo documents loaded inside the panels ----
+
+   These render inside a fixed-height iframe, so everything here is sized to fit the
+   shortest panel without scrolling. The hero is cropped to a banner strip rather than
+   shown at its full 2:1 ratio. */
 
 .demo {
-  padding: 1.25rem;
+  padding: 0.85rem 1rem;
 }
 
 .demo-head {
@@ -505,7 +509,7 @@ a:hover {
   display: flex;
   gap: 0.75rem;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
 }
 
 .demo-badge {
@@ -549,32 +553,31 @@ a:hover {
 }
 
 .demo-card h1 {
-  font-size: 1.0625rem;
-  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+  margin-bottom: 0.5rem;
 }
 
 .demo-card img {
+  block-size: 4rem;
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   display: block;
-  block-size: auto;
-  max-inline-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
 }
 
 .demo-card ul {
   color: var(--ink-2);
-  font-size: 0.8125rem;
-  margin: 0.9rem 0 0;
-  padding-inline-start: 1.1rem;
-}
-
-.demo-card li + li {
-  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  margin: 0.6rem 0 0;
+  padding-inline-start: 1rem;
 }
 
 .demo-skeleton {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.5rem;
 }
 
 .demo-skeleton span {
@@ -584,17 +587,18 @@ a:hover {
   display: block;
 }
 
+/* Matched to the loaded card, so nothing shifts when the content lands. */
 .demo-skeleton-title {
-  block-size: 1.25rem;
+  block-size: 1.1rem;
   inline-size: 55%;
 }
 
 .demo-skeleton-media {
-  aspect-ratio: 2 / 1;
+  block-size: 4rem;
 }
 
 .demo-skeleton-line {
-  block-size: 0.75rem;
+  block-size: 0.7rem;
 }
 
 .demo-skeleton-line.short {
@@ -616,14 +620,14 @@ a:hover {
 .demo-metrics {
   border-top: 1px solid var(--line);
   display: flex;
-  gap: 1.5rem;
-  margin: 1rem 0 0;
-  padding-top: 0.8rem;
+  gap: 1.25rem;
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
 }
 
 .demo-metrics dt {
   color: var(--ink-3);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -631,9 +635,9 @@ a:hover {
 .demo-metrics dd {
   color: var(--ink-1);
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
-  margin: 0.15rem 0 0;
+  margin: 0.1rem 0 0;
 }
 
 .demo-problem {

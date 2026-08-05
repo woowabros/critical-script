@@ -1,9 +1,5 @@
 {
   "title": "Prefetched before the bundle",
   "heroImageUrl": "/critical-script/og.png",
-  "items": [
-    "The request left the browser while the HTML was still being parsed.",
-    "This component only collected a promise that was already in flight.",
-    "Served as a static file, so the numbers reflect request timing rather than server latency."
-  ]
+  "items": ["The request left the browser while the HTML was still being parsed."]
 }

@@ -80,9 +80,19 @@ export default function BenchmarkPreview({ locale }: Props): ReactElement {
               )}
             </div>
 
+            {/* Request start is the measured number the plugin moves; content shown also
+                carries the simulated bundle boot and API latency. */}
             <footer>
-              {shared.contentShown}
-              <b>{results[variant] === undefined ? '–' : `${results[variant]!.contentAt.toFixed(0)}ms`}</b>
+              <span>
+                {shared.requestStart}
+                <b>
+                  {results[variant]?.requestStart == null ? '–' : `${results[variant]!.requestStart!.toFixed(0)}ms`}
+                </b>
+              </span>
+              <span>
+                {shared.contentShown}
+                <b>{results[variant] === undefined ? '–' : `${results[variant]!.contentAt.toFixed(0)}ms`}</b>
+              </span>
             </footer>
           </article>
         ))}
