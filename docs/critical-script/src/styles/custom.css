@@ -256,7 +256,23 @@ header.header {
   box-shadow: none;
 }
 
-/* Cards on the landing page. */
+/* Cards on the landing page. Two even columns, all four aligned on a shared baseline.
+   Starlight's default auto-fill would pick the column count from the available width,
+   and its `stagger` prop offsets alternate columns; neither is wanted here. */
+.card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card-grid.stagger .card {
+  margin-block-start: 0;
+}
+
+@media (max-width: 44rem) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .card {
   background: linear-gradient(180deg, var(--surface-1), var(--surface-0));
   border: 1px solid var(--line);
