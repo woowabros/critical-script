@@ -60,6 +60,7 @@ export interface StageStrings {
   notes: string[]
   openInTab: string
   panel: Record<DemoVariant, string>
+  panelIdle: string
   panelHint: Record<DemoVariant, string>
   requestStart: string
   rerun: string
@@ -92,6 +93,7 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     ],
     openInTab: 'Open this page on its own',
     panel: { with: 'With critical script', without: 'Without critical script' },
+    panelIdle: 'Not loaded yet',
     panelHint: {
       with: 'The inline script sends the request while the HTML is still being parsed.',
       without: 'The request starts in useEffect, after the bundle has booted.',
@@ -125,6 +127,7 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     ],
     openInTab: '이 페이지만 따로 열기',
     panel: { with: '크리티컬 스크립트 사용', without: '크리티컬 스크립트 미사용' },
+    panelIdle: '아직 불러오지 않았습니다',
     panelHint: {
       with: '인라인 스크립트가 HTML 을 파싱하는 동안 요청을 보냅니다.',
       without: '번들 부팅이 끝난 뒤 useEffect 에서 요청을 시작합니다.',

@@ -185,7 +185,7 @@ export default function BenchmarkStage({ locale }: Props): ReactElement {
 
               <div className='panel-frame'>
                 {run === 0 ? (
-                  <p className='panel-empty'>{strings.idle}</p>
+                  <p className='panel-empty'>{strings.panelIdle}</p>
                 ) : (
                   <iframe
                     key={run}

@@ -24,9 +24,32 @@ export default defineConfig({
       editLink: {
         baseUrl: `${repository}/edit/main/docs/critical-script/`,
       },
-      // A single dark code theme, so no light-mode rules ship at all.
-      expressiveCode: { themes: ['github-dark'] },
-      favicon: '/favicon.svg',
+      // One dark syntax theme, so no light-mode rules ship at all. one-dark-pro keeps
+      // enough hue separation to read on a near-neutral surface, and the chrome is
+      // pinned to the palette so a block never looks like a foreign box on the page.
+      expressiveCode: {
+        styleOverrides: {
+          borderColor: 'var(--code-line)',
+          borderWidth: '1px',
+          borderRadius: 'var(--radius-md)',
+          codeBackground: 'var(--code-bg)',
+          codeFontFamily: 'var(--font-mono)',
+          frames: {
+            editorActiveTabBackground: 'var(--code-bg)',
+            editorActiveTabIndicatorTopColor: 'var(--brand)',
+            editorTabBarBackground: 'var(--code-chrome)',
+            editorTabBarBorderBottomColor: 'var(--code-line)',
+            terminalBackground: 'var(--code-bg)',
+            terminalTitlebarBackground: 'var(--code-chrome)',
+            terminalTitlebarBorderBottomColor: 'var(--code-line)',
+          },
+          scrollbarThumbColor: 'var(--line-strong)',
+          scrollbarThumbHoverColor: 'var(--ink-3)',
+          uiFontFamily: 'var(--font-sans)',
+        },
+        themes: ['one-dark-pro'],
+      },
+      favicon: '/favicon.png',
       head: [
         { attrs: { content: `${site}${base}og.png`, property: 'og:image' }, tag: 'meta' },
         { attrs: { content: 'summary_large_image', name: 'twitter:card' }, tag: 'meta' },
@@ -35,6 +58,7 @@ export default defineConfig({
         en: { label: 'English', lang: 'en' },
         ko: { label: '한국어', lang: 'ko' },
       },
+      logo: { alt: '', src: './src/assets/mark.png' },
       sidebar: [
         {
           items: ['getting-started', 'design-philosophy', 'use-cases', 'caveats'],

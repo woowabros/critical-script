@@ -44,16 +44,36 @@
 body {
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.011em;
+  /* Korean breaks between words rather than mid-word. Harmless for English, which has
+     no intra-word break opportunities to begin with. */
+  word-break: keep-all;
 }
 
-/* Glassy sticky header instead of a flat bar with a hard bottom rule. */
-.header {
+/* Glassy sticky header, no dividing rule. Starlight draws one through
+   --sl-color-hairline-shade, so it has to be cleared as well as the border.
+   Scoped to the element, because Expressive Code's tab bar also uses .header. */
+header.header {
   backdrop-filter: blur(12px) saturate(140%);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
+  box-shadow: none;
 }
 
 .sidebar-pane {
   border-inline-end: 1px solid var(--line);
+}
+
+/* The wordmark: monospaced and tight, sitting next to the mark. */
+.site-title {
+  color: var(--ink-1);
+  font-family: var(--font-mono);
+  font-size: var(--sl-text-lg);
+  font-weight: 600;
+  gap: 0.55rem;
+  letter-spacing: -0.03em;
+}
+
+.site-title img {
+  border-radius: 0.35rem;
 }
 
 /* Sidebar: pill-shaped active state, quieter inactive rows. */
@@ -95,13 +115,25 @@ body {
   padding-top: 0;
 }
 
-/* Tables and code get real surfaces rather than bare borders. */
+/* Nothing in the article may push the page sideways. Grid children default to
+   min-width:auto, which is what lets a long code line or a wide table widen the
+   whole column instead of scrolling inside itself. */
+.sl-markdown-content,
+.sl-markdown-content > * {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+/* Tables get a real surface, and scroll on their own when the columns cannot fit. */
 .sl-markdown-content table {
   border: 1px solid var(--line);
   border-collapse: separate;
   border-radius: var(--radius-md);
   border-spacing: 0;
-  overflow: hidden;
+  display: block;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  width: max-content;
 }
 
 .sl-markdown-content :is(th, td) {
@@ -121,16 +153,51 @@ body {
   border-bottom: 0;
 }
 
-.sl-markdown-content .expressive-code .frame {
-  border-radius: var(--radius-md);
+/* Code blocks. Expressive Code already scrolls its own <pre>; these rules keep the
+   frame clipped to its radius so nothing bleeds past the rounded corners, and pin the
+   chrome to the palette instead of the syntax theme's own background. */
+.sl-markdown-content .expressive-code {
+  max-inline-size: 100%;
+}
+
+.expressive-code .frame {
   box-shadow: var(--shadow-sm);
+  max-inline-size: 100%;
+}
+
+/* Expressive Code ships `.expressive-code pre { overflow-x: auto }`, but inside the
+   article something outranks it and the <pre> computes `visible`, so a long line spills
+   out of the block and widens the page. Restated here with the article in the selector.
+   Only overflow-x: adding a max-inline-size as well leaves a scrollbar stub under blocks
+   that fit. */
+.sl-markdown-content .expressive-code pre {
+  overflow-x: auto;
+}
+
+.expressive-code .copy button {
+  background: var(--code-chrome);
+  border: 1px solid var(--code-line);
+}
+
+.expressive-code .copy button:hover {
+  border-color: var(--brand-edge);
 }
 
 .sl-markdown-content :not(pre) > code {
-  border: 1px solid var(--line);
+  background: var(--code-bg);
+  border: 1px solid var(--code-line);
   border-radius: 0.375rem;
+  color: var(--brand-strong);
   font-size: 0.875em;
+  overflow-wrap: anywhere;
   padding: 0.15em 0.4em;
+}
+
+/* Inside a table, breaking a token mid-word reads as a typo. The table scrolls
+   instead, so identifiers stay whole. */
+.sl-markdown-content :is(th, td) code {
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 
 .sl-markdown-content blockquote {
@@ -245,11 +312,12 @@ dialog[aria-label] {
   border-radius: var(--radius-lg);
 }
 
-/* A sidebar link that leaves the docs layout deserves a hint that it is a demo. */
+/* A sidebar link that leaves the docs layout deserves a hint that it is a demo.
+   Second accent on purpose, so the key colour keeps meaning "current page". */
 .sidebar-content a[href$='/benchmark/']::after {
-  background: var(--brand-wash);
+  background: var(--accent-2-wash);
   border-radius: var(--radius-full);
-  color: var(--brand-strong);
+  color: var(--accent-2-strong);
   content: 'live';
   font-size: 0.6875rem;
   font-weight: 600;

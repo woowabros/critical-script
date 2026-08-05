@@ -18,6 +18,8 @@ body {
   letter-spacing: -0.011em;
   line-height: 1.6;
   margin: 0;
+  /* Korean breaks between words rather than mid-word. */
+  word-break: keep-all;
 }
 
 h1,
@@ -43,7 +45,6 @@ a:hover {
   align-items: center;
   backdrop-filter: blur(12px) saturate(140%);
   background: color-mix(in oklab, var(--surface-0) 82%, transparent);
-  border-bottom: 1px solid var(--line);
   display: flex;
   gap: 1.5rem;
   justify-content: space-between;
@@ -54,11 +55,19 @@ a:hover {
 }
 
 .site-mark {
+  align-items: center;
   color: var(--ink-1);
+  display: flex;
   font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  gap: 0.55rem;
+  letter-spacing: -0.03em;
+}
+
+.site-mark img {
+  border-radius: 0.35rem;
+  display: block;
 }
 
 .site-bar nav {
@@ -178,6 +187,7 @@ a:hover {
 
 .stage-choices {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.375rem;
   margin-top: 0.5rem;
 }
@@ -262,11 +272,17 @@ a:hover {
   overflow: hidden;
 }
 
+/* The two panels carry different accents, so a glance at the chrome already says
+   which side is which before any number lands. */
 .panel-with {
   border-color: color-mix(in oklab, var(--brand) 35%, var(--line));
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--brand) 18%, transparent),
+    0 0 0 1px var(--brand-edge),
     var(--shadow-md);
+}
+
+.panel-without {
+  border-color: color-mix(in oklab, var(--slow) 22%, var(--line));
 }
 
 .panel-head {
@@ -286,6 +302,10 @@ a:hover {
   color: var(--brand-strong);
 }
 
+.panel-without .panel-head h2 {
+  color: var(--slow);
+}
+
 .panel-head p {
   color: var(--ink-3);
   font-size: 0.8125rem;
@@ -300,8 +320,12 @@ a:hover {
   white-space: nowrap;
 }
 
-.panel-clock.is-done {
+.panel-with .panel-clock.is-done {
   color: var(--brand-strong);
+}
+
+.panel-without .panel-clock.is-done {
+  color: var(--slow);
 }
 
 .panel-frame {
@@ -452,6 +476,15 @@ a:hover {
 
 /* Notes */
 
+.stage-notes {
+  border-inline-start: 2px solid var(--info);
+  padding-inline-start: 1rem;
+}
+
+.stage-notes h2 {
+  color: var(--info);
+}
+
 .stage-notes ul {
   color: var(--ink-3);
   display: grid;
@@ -497,12 +530,22 @@ a:hover {
   font-size: 0.75rem;
 }
 
+.demo-without .demo-badge {
+  background: var(--slow-wash);
+  border-color: color-mix(in oklab, var(--slow) 40%, transparent);
+  color: var(--slow);
+}
+
+.demo-stage-booting .demo-stage {
+  color: var(--ink-4);
+}
+
 .demo-stage-requesting .demo-stage {
   color: var(--warn);
 }
 
 .demo-stage-ready .demo-stage {
-  color: var(--brand);
+  color: var(--ok);
 }
 
 .demo-card h1 {
