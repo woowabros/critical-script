@@ -9,7 +9,7 @@ critical-script 는 **메인 JS 번들보다 먼저 실행되어야 하는 작�
 
 - 메인 JS 번들이 로드되기 전에 시작해야 의미가 있는 작업만 포함하기를 권장합니다. 예를 들어 API Prefetch나 리소스 프리로드, 웹뷰 브릿지 등이 있습니다.
 - 큰 라이브러리 의존성처럼 무거운 로직은 일반 JS 번들에 두세요. 인라인 스크립트에 포함하면 이 플러그인의 의도와는 맞지 않습니다.
-- 기본 `outputSizeLimit` 8192바이트가 이 원칙을 빌드 단계에서 강제합니다. 자세한 근거는 [API 레퍼런스의 outputSizeLimit](../api-reference/#outputsizelimit) 를 참조하세요.
+- 기본 `outputSizeLimit` 8192바이트가 이 원칙을 빌드 단계에서 강제합니다. 자세한 근거는 [API 레퍼런스의 outputSizeLimit](/critical-script/ko/api-reference#outputsizelimit) 를 참조하세요.
 
 ## 언제 사용하나요
 

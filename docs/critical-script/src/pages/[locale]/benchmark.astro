@@ -10,7 +10,7 @@ export function getStaticPaths() {
 
 const locale = Astro.params.locale as Locale
 const strings = STAGE_STRINGS[locale]
-const base = import.meta.env.BASE_URL
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const other: Locale = locale === 'en' ? 'ko' : 'en'
 ---
 
@@ -20,17 +20,17 @@ const other: Locale = locale === 'en' ? 'ko' : 'en'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{strings.title} | critical-script</title>
     <meta name="description" content={strings.description} />
-    <link rel="icon" href={`${base}favicon.png`} type="image/png" />
+    <link rel="icon" href={`${base}/favicon.png`} type="image/png" />
   </head>
   <body>
     <header class="site-bar">
-      <a class="site-mark" href={`${base}${locale}/`}>
-        <img alt="" height="24" src={`${base}favicon.png`} width="24" />
+      <a class="site-mark" href={`${base}/${locale}`}>
+        <img alt="" height="24" src={`${base}/favicon.png`} width="24" />
         critical-script
       </a>
       <nav>
-        <a href={`${base}${locale}/getting-started/`}>{strings.backToDocs}</a>
-        <a href={`${base}${other}/benchmark/`}>{other === 'ko' ? '한국어' : 'English'}</a>
+        <a href={`${base}/${locale}/getting-started`}>{strings.backToDocs}</a>
+        <a href={`${base}/${other}/benchmark`}>{other === 'ko' ? '한국어' : 'English'}</a>
         <a href="https://github.com/woowabros/critical-script" rel="noreferrer" target="_blank">GitHub</a>
       </nav>
     </header>

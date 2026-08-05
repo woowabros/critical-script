@@ -4,12 +4,19 @@ import starlight from '@astrojs/starlight'
 import { criticalScriptPlugin } from '@woowabros/vite-plugin-critical-script'
 import { defineConfig } from 'astro/config'
 
+import { cleanUrls } from './src/integrations/clean-urls'
+
 const site = 'https://woowabros.github.io'
 const base = '/critical-script/'
 const repository = 'https://github.com/woowabros/critical-script'
 
 export default defineConfig({
   base,
+  // Extensionless URLs with no trailing slash. `file` writes en/getting-started.html
+  // rather than en/getting-started/index.html, which GitHub Pages serves at
+  // /en/getting-started. Note that this changes what relative links resolve against,
+  // so internal links are written from the site root instead.
+  build: { format: 'file' },
   integrations: [
     react(),
     starlight({
@@ -73,7 +80,7 @@ export default defineConfig({
         {
           // Its own route rather than a docs page, because the split view needs the
           // whole viewport and full control over each document's <head>.
-          items: [{ label: 'Side by side', link: '/benchmark/', translations: { ko: '나란히 비교' } }],
+          items: [{ label: 'Side by side', link: '/benchmark', translations: { ko: '나란히 비교' } }],
           label: 'Benchmark',
           translations: { ko: '벤치마크' },
         },
@@ -84,8 +91,10 @@ export default defineConfig({
     // NOTE: mdx() must come after starlight(). Starlight bundles astro-expressive-code,
     // which requires registration before mdx() and fails the build otherwise.
     mdx(),
+    cleanUrls({ base, site }),
   ],
   site,
+  trailingSlash: 'never',
   vite: {
     plugins: [
       criticalScriptPlugin({

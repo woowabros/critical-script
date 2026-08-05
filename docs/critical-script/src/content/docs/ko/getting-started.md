@@ -48,7 +48,7 @@ export default function Home() {
 }
 ```
 
-빌드 시 `home.critical.ts`가 esbuild로 컴파일·minify되어 HTML 의 `<script>` 태그로 인라인됩니다. `define` 등 플러그인 옵션은 [API 레퍼런스](../api-reference/)를, 활용 패턴은 [활용 사례](../use-cases/)를 참고하세요.
+빌드 시 `home.critical.ts`가 esbuild로 컴파일·minify되어 HTML 의 `<script>` 태그로 인라인됩니다. `define` 등 플러그인 옵션은 [API 레퍼런스](/critical-script/ko/api-reference)를, 활용 패턴은 [활용 사례](/critical-script/ko/use-cases)를 참고하세요.
 
 ## 출력 예시
 

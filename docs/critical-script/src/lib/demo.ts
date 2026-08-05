@@ -42,6 +42,9 @@ export function clampSimulated(raw: null | number | string): number {
   return Math.min(Math.round(value), MAX_SIMULATED_MS)
 }
 
+/** Site root without a trailing slash, so paths can be joined with a single one. */
+export const BASE = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 export function demoPath(
   variant: DemoVariant,
   options: { boot: number; lang: string; latency: number; run: number },
@@ -53,7 +56,7 @@ export function demoPath(
     run: String(options.run),
   })
 
-  return `${import.meta.env.BASE_URL}demo/${variant}-critical/?${query.toString()}`
+  return `${BASE}/demo/${variant}-critical?${query.toString()}`
 }
 
 export function sleep(ms: number): Promise<void> {

@@ -1,33 +1,30 @@
 ---
 // Every documentation page lives under a locale prefix, so nothing is generated at
-// the site root. This page fills that gap: it sends visitors to their language when
-// the browser asks for Korean, and to English otherwise.
+// the site root. This page fills that gap and always sends visitors to the default
+// locale, matching `defaultLocale: 'en'` in astro.config.ts. The Korean docs are one
+// click away in the header's language picker.
 
-const base = import.meta.env.BASE_URL
-const fallback = `${base}en/`
-const korean = `${base}ko/`
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const target = `${base}/en`
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content={`0; url=${fallback}`} />
-    <link rel="canonical" href={fallback} />
-    <link rel="icon" href={`${base}favicon.png`} type="image/png" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <link rel="icon" href={`${base}/favicon.png`} type="image/png" />
     <title>critical-script</title>
-    <script is:inline define:vars={{ fallback, korean }}>
-      const tags = navigator.languages ?? [navigator.language]
-      const prefersKorean = tags.some((tag) => String(tag).toLowerCase().startsWith('ko'))
-
-      location.replace(prefersKorean ? korean : fallback)
+    <script is:inline define:vars={{ target }}>
+      location.replace(target)
     </script>
     <style>
       body {
         background: #222222;
         color: #c2c8c8;
-        font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         display: grid;
+        font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         margin: 0;
         min-height: 100vh;
         place-content: center;
@@ -40,8 +37,6 @@ const korean = `${base}ko/`
     </style>
   </head>
   <body>
-    <p>
-      <a href={fallback}>English</a> · <a href={korean}>한국어</a>
-    </p>
+    <p><a href={target}>critical-script docs</a></p>
   </body>
 </html>

@@ -48,7 +48,7 @@ export default function Home() {
 }
 ```
 
-At build time, `home.critical.ts` is compiled and minified by esbuild and inlined into the HTML as a `<script>` tag. See the [API Reference](../api-reference/) for plugin options such as `define`, and [Use Cases](../use-cases/) for common patterns.
+At build time, `home.critical.ts` is compiled and minified by esbuild and inlined into the HTML as a `<script>` tag. See the [API Reference](/critical-script/en/api-reference) for plugin options such as `define`, and [Use Cases](/critical-script/en/use-cases) for common patterns.
 
 ## Output Example
 

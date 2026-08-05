@@ -9,7 +9,7 @@ critical-script is a tool for doing work that **only makes sense if it runs befo
 
 - Inline only the work that has to start before the main JS bundle arrives, such as API prefetching, resource preloading, and webview bridges.
 - Keep heavy logic such as synchronous computation or large library usage in the regular JS bundle. Cramming it into the inline script defeats the purpose of this tool.
-- The default `outputSizeLimit` of 8192 bytes enforces this principle at build time. See [API Reference, outputSizeLimit](../api-reference/#outputsizelimit) for the full rationale.
+- The default `outputSizeLimit` of 8192 bytes enforces this principle at build time. See [API Reference, outputSizeLimit](/critical-script/en/api-reference#outputsizelimit) for the full rationale.
 
 ## When to Use It
 

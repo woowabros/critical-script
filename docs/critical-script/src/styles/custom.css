@@ -314,7 +314,7 @@ dialog[aria-label] {
 
 /* A sidebar link that leaves the docs layout deserves a hint that it is a demo.
    Second accent on purpose, so the key colour keeps meaning "current page". */
-.sidebar-content a[href$='/benchmark/']::after {
+.sidebar-content a[href$='/benchmark']::after {
   background: var(--accent-2-wash);
   border-radius: var(--radius-full);
   color: var(--accent-2-strong);

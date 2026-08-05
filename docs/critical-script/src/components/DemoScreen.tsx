@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useState } from 'react'
 
 import {
   API_PATH,
+  BASE,
   DEMO_MESSAGE_SOURCE,
   type DemoMetrics,
   type DemoStage,
@@ -77,7 +78,7 @@ export default function DemoScreen({ variant }: Props): ReactElement {
         pending = window.__demoHome
       } else {
         startedAt = performance.now()
-        pending = fetch(`${import.meta.env.BASE_URL}${API_PATH.replace(/^\//, '')}`, { cache: 'no-store' }).then(
+        pending = fetch(`${BASE}${API_PATH}`, { cache: 'no-store' }).then(
           (response) => response.json() as Promise<DemoHome>,
         )
       }
