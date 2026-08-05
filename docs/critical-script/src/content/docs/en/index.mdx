@@ -8,7 +8,7 @@ hero:
     - text: Getting Started
       link: /critical-script/en/getting-started
       icon: right-arrow
-    - text: Run the benchmark
+    - text: Full benchmark
       link: /critical-script/en/benchmark
       variant: minimal
     - text: GitHub
@@ -18,6 +18,9 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components'
+import BenchmarkPreview from '../../../components/BenchmarkPreview'
+
+<BenchmarkPreview client:load locale='en' />
 
 <CardGrid stagger>
   <Card title="Written in TypeScript" icon="seti:typescript">

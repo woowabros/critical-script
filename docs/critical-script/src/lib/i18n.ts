@@ -44,6 +44,34 @@ export const DEMO_STRINGS: Record<Locale, DemoStrings> = {
   },
 }
 
+/** Strings for the compact benchmark on the landing page. */
+export interface PreviewStrings {
+  description: string
+  details: string
+  note: string
+  rerun: string
+  title: string
+}
+
+export const PREVIEW_STRINGS: Record<Locale, PreviewStrings> = {
+  en: {
+    description:
+      'Two pages built by this plugin, loaded side by side the moment you arrived. Only the right one sends its request before the JavaScript bundle boots.',
+    details: 'Full benchmark',
+    note: 'Bundle boot and API latency are simulated so the gap is visible on static hosting. Request start is measured. The full benchmark lets you change both and explains why.',
+    rerun: 'Run again',
+    title: 'See it happen',
+  },
+  ko: {
+    description:
+      '이 플러그인으로 빌드한 두 페이지를 접속과 동시에 나란히 불러왔습니다. 오른쪽만 자바스크립트 번들이 부팅되기 전에 요청을 보냅니다.',
+    details: '자세한 벤치마크',
+    note: '정적 호스팅에서 차이가 보이도록 번들 부팅과 API 지연을 시뮬레이션합니다. 요청 시작은 실측값입니다. 자세한 벤치마크에서 두 값을 바꾸고 근거를 확인할 수 있습니다.',
+    rerun: '다시 실행',
+    title: '동작을 바로 확인하기',
+  },
+}
+
 /** Strings for the standalone benchmark page. */
 export interface StageStrings {
   backToDocs: string
