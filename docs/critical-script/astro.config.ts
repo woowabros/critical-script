@@ -13,12 +13,19 @@ export default defineConfig({
   integrations: [
     react(),
     starlight({
+      components: {
+        // Dark only: no selector, and no client script that could switch to light.
+        ThemeProvider: './src/overrides/ThemeProvider.astro',
+        ThemeSelect: './src/overrides/ThemeSelect.astro',
+      },
       credits: false,
       customCss: ['./src/styles/tokens.css', './src/styles/custom.css'],
       defaultLocale: 'en',
       editLink: {
         baseUrl: `${repository}/edit/main/docs/critical-script/`,
       },
+      // A single dark code theme, so no light-mode rules ship at all.
+      expressiveCode: { themes: ['github-dark'] },
       favicon: '/favicon.svg',
       head: [
         { attrs: { content: `${site}${base}og.png`, property: 'og:image' }, tag: 'meta' },

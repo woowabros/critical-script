@@ -1,8 +1,12 @@
 /* Starlight theme. Maps the shared tokens onto Starlight's own variables, then
    tightens the parts of the default theme that read as dated: flat surfaces,
-   hard hairlines, cramped sidebar, and unstyled hero. */
+   hard hairlines, cramped sidebar, and unstyled hero.
 
-:root {
+   Dark only. The theme toggle and Starlight's theme provider are both overridden
+   away, so `data-theme` stays `dark` and no light-mode rule ever matches. */
+
+:root,
+:root[data-theme='light'] {
   --sl-font: var(--font-sans);
   --sl-font-mono: var(--font-mono);
 
@@ -35,10 +39,6 @@
   --sl-nav-height: 4rem;
   --sl-content-width: 48rem;
   --sl-line-height: 1.75;
-}
-
-:root[data-theme='light'] {
-  --sl-color-text-invert: #ffffff;
 }
 
 body {

@@ -1,7 +1,12 @@
 /* Shared design tokens. Loaded by Starlight pages and by the standalone benchmark page,
-   so both surfaces share one palette, one type scale, and one set of radii. */
+   so both surfaces share one palette, one type scale, and one set of radii.
+
+   The site is dark only. There is no light variant and no theme toggle, so every
+   token below is the single source of truth for colour. */
 
 :root {
+  color-scheme: dark;
+
   --font-sans:
     -apple-system, BlinkMacSystemFont, 'Pretendard Variable', Pretendard, 'Inter', system-ui, 'Apple SD Gothic Neo',
     'Noto Sans KR', 'Malgun Gothic', sans-serif;
@@ -14,52 +19,29 @@
 
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
 
-  /* Dark is the default surface. */
-  --surface-0: #0a0c10;
-  --surface-1: #10131a;
-  --surface-2: #161a23;
-  --surface-3: #1e232e;
-  --line: #262c38;
-  --line-strong: #333b4a;
+  /* Surfaces, stepped up from the page background. */
+  --surface-0: #222222;
+  --surface-1: #282a2a;
+  --surface-2: #2f3232;
+  --surface-3: #383c3c;
+  --line: #3a3e3e;
+  --line-strong: #4d5252;
 
-  --ink-1: #f2f5f9;
-  --ink-2: #b8c1d1;
-  --ink-3: #7f8a9c;
+  --ink-1: #f4f6f6;
+  --ink-2: #c2c8c8;
+  --ink-3: #8d9494;
 
-  --brand: #2dd4bf;
-  --brand-strong: #5eead4;
-  --brand-dim: #0f766e;
-  --brand-wash: rgb(45 212 191 / 12%);
+  /* Key colour. Bright enough to read as the highlight, so it carries dark text on top. */
+  --brand: #0cefd3;
+  --brand-strong: #6df6e4;
+  --brand-dim: #0a7f72;
+  --brand-wash: rgb(12 239 211 / 12%);
+  --brand-edge: rgb(12 239 211 / 38%);
 
   --warn: #fbbf24;
   --slow: #f87171;
 
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
-  --shadow-md: 0 8px 24px -8px rgb(0 0 0 / 60%);
-  --shadow-lg: 0 24px 60px -24px rgb(0 0 0 / 70%);
-}
-
-:root[data-theme='light'] {
-  --surface-0: #ffffff;
-  --surface-1: #f8fafc;
-  --surface-2: #f1f5f9;
-  --surface-3: #e8eef5;
-  --line: #e2e8f0;
-  --line-strong: #cbd5e1;
-
-  --ink-1: #0b1220;
-  --ink-2: #45536b;
-  --ink-3: #6b7a90;
-
-  --brand: #0d9488;
-  --brand-strong: #0f766e;
-  --brand-dim: #99f6e4;
-  --brand-wash: rgb(13 148 136 / 10%);
-
-  --warn: #b45309;
-  --slow: #dc2626;
-
-  --shadow-sm: 0 1px 2px rgb(15 23 42 / 8%);
-  --shadow-md: 0 8px 24px -10px rgb(15 23 42 / 18%);
-  --shadow-lg: 0 24px 60px -28px rgb(15 23 42 / 24%);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 35%);
+  --shadow-md: 0 8px 24px -8px rgb(0 0 0 / 55%);
+  --shadow-lg: 0 24px 60px -24px rgb(0 0 0 / 65%);
 }
