@@ -1,5 +1,5 @@
 {
-  "title": "Home feed",
+  "title": "Benchmark Test",
   "heroImageUrl": "/critical-script/og.png",
   "items": ["Rendered from api/home.json, the response both demo pages request."]
 }
