@@ -1,5 +1,5 @@
 {
-  "title": "Prefetched before the bundle",
+  "title": "Home feed",
   "heroImageUrl": "/critical-script/og.png",
-  "items": ["The request left the browser while the HTML was still being parsed."]
+  "items": ["Rendered from api/home.json, the response both demo pages request."]
 }

@@ -128,8 +128,10 @@ export default function DemoScreen({ variant }: Props): ReactElement {
 
   return (
     <main className={`demo demo-${variant} demo-stage-${stage}`}>
+      {/* The badge only earns its place when the demo stands alone. Inside a panel the
+          heading above the frame already names the variant. */}
       <header className='demo-head'>
-        <span className='demo-badge'>{strings.badge[variant]}</span>
+        {!framed && <span className='demo-badge'>{strings.badge[variant]}</span>}
         <span className='demo-stage'>{problem === null ? strings.stage[stage] : strings.failed}</span>
       </header>
 

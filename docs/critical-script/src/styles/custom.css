@@ -49,13 +49,12 @@ body {
   word-break: keep-all;
 }
 
-/* Glassy sticky header, no dividing rule. Starlight draws one through
-   --sl-color-hairline-shade, so it has to be cleared as well as the border.
-   Scoped to the element, because Expressive Code's tab bar also uses .header. */
+/* Glassy sticky header with a hairline under it, so the bar reads as separate from the
+   article scrolling beneath. Scoped to the element, because Expressive Code's tab bar
+   also uses .header. */
 header.header {
   backdrop-filter: blur(12px) saturate(140%);
-  border-bottom: 0;
-  box-shadow: none;
+  border-bottom: 1px solid var(--line);
 }
 
 .sidebar-pane {
@@ -205,18 +204,10 @@ header.header {
   color: var(--ink-2);
 }
 
-/* Landing page. A quiet glow behind the hero instead of a bare centred column. */
+/* Landing page. No background glow: it clipped at the content edges and read as a
+   rendering artefact rather than as depth. */
 .hero {
   padding-block: clamp(2rem, 7vw, 5rem);
-  position: relative;
-}
-
-.hero::before {
-  background: radial-gradient(58% 62% at 50% 0%, var(--brand-wash), transparent 70%);
-  content: '';
-  inset: -6rem -50% auto;
-  position: absolute;
-  z-index: -1;
 }
 
 .hero h1 {
@@ -236,24 +227,30 @@ header.header {
   margin-top: 2rem;
 }
 
-.hero a.action {
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+/* Starlight renders these as .sl-link-button, so the selector has to name that class.
+   The primary action carries the most weight; the quieter ones stay a step below. */
+.hero .actions a.sl-link-button {
   font-weight: 600;
-  padding: 0.7rem 1.35rem;
   transition:
     transform 0.18s var(--ease),
     box-shadow 0.18s var(--ease);
 }
 
-.hero a.action:hover {
+.hero .actions a.sl-link-button.primary {
+  box-shadow: var(--shadow-sm);
+  font-weight: 700;
+}
+
+/* No border on the minimal variant: Starlight gives it very little padding, so a border
+   sits right against the text. They stay quiet text links next to the primary pill. */
+.hero .actions a.sl-link-button:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
-.hero a.action.minimal {
-  border: 1px solid var(--line-strong);
+.hero .actions a.sl-link-button.minimal:hover {
   box-shadow: none;
+  color: var(--brand-strong);
 }
 
 /* Cards on the landing page. Two even columns, all four aligned on a shared baseline.
@@ -466,7 +463,7 @@ header.header {
    differ per platform and locale, so the frame never scrolls. */
 .bp-frame {
   background: var(--surface-0);
-  block-size: 14rem;
+  block-size: 18rem;
 }
 
 .bp-frame iframe {

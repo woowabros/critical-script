@@ -66,6 +66,9 @@ export default defineConfig({
         ko: { label: '한국어', lang: 'ko' },
       },
       logo: { alt: '', src: './src/assets/mark.png' },
+      // No search: the site is five pages per locale, and dropping it lets the
+      // documentation header and the benchmark page's bar hold the same content.
+      pagefind: false,
       sidebar: [
         {
           items: ['getting-started', 'design-philosophy', 'use-cases', 'caveats'],

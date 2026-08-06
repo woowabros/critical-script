@@ -41,14 +41,19 @@ a:hover {
 
 /* Top bar */
 
+/* Sized to match the documentation header exactly: 4rem tall, 0.75rem of vertical
+   padding, a 2.5rem mark and an 18px wordmark. The two surfaces should not look like
+   different sites. */
 .site-bar {
   align-items: center;
   backdrop-filter: blur(12px) saturate(140%);
   background: color-mix(in oklab, var(--surface-0) 82%, transparent);
+  border-bottom: 1px solid var(--line);
   display: flex;
   gap: 1.5rem;
   justify-content: space-between;
-  padding: 0.9rem clamp(1rem, 4vw, 2.5rem);
+  min-block-size: 4rem;
+  padding: 0.75rem 1.5rem;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -59,15 +64,17 @@ a:hover {
   color: var(--ink-1);
   display: flex;
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   gap: 0.55rem;
   letter-spacing: -0.03em;
 }
 
 .site-mark img {
+  block-size: 2.5rem;
   border-radius: 0.35rem;
   display: block;
+  inline-size: 2.5rem;
 }
 
 .site-bar nav {
@@ -92,19 +99,10 @@ a:hover {
   padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 2.5rem) 5rem;
 }
 
+/* No background glow here either: it clipped at the shell's edges. */
 .stage-intro {
   margin-bottom: 2.5rem;
   max-width: 46rem;
-  position: relative;
-}
-
-.stage-intro::before {
-  background: radial-gradient(50% 120% at 0% 0%, var(--brand-wash), transparent 70%);
-  content: '';
-  inset: -5rem -20% auto -8rem;
-  block-size: 16rem;
-  position: absolute;
-  z-index: -1;
 }
 
 .stage-intro h1 {
@@ -330,7 +328,7 @@ a:hover {
 
 .panel-frame {
   background: var(--surface-0);
-  block-size: 18rem;
+  block-size: 21rem;
   position: relative;
 }
 
@@ -532,6 +530,8 @@ a:hover {
 .demo-stage {
   color: var(--ink-3);
   font-size: 0.75rem;
+  /* Stays on the right whether or not the badge is rendered beside it. */
+  margin-inline-start: auto;
 }
 
 .demo-without .demo-badge {
@@ -558,7 +558,7 @@ a:hover {
 }
 
 .demo-card img {
-  block-size: 4rem;
+  block-size: 8rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   display: block;
@@ -594,7 +594,7 @@ a:hover {
 }
 
 .demo-skeleton-media {
-  block-size: 4rem;
+  block-size: 8rem;
 }
 
 .demo-skeleton-line {
