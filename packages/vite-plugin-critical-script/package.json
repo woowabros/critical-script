@@ -46,7 +46,7 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "dedent": "1.7.1",
+    "dedent": "1.7.2",
     "esbuild": "catalog:"
   },
   "devDependencies": {
