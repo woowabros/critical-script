@@ -28,13 +28,8 @@ jobs:
           node-version: 24.15.0
           cache: pnpm
 
-      # The plugin is consumed through a link: dependency, so its dist has to exist
-      # before the site is built.
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm --filter @woowabros/vite-plugin-critical-script build
-
-      # The site is its own pnpm project, deliberately outside the workspace.
+      # The site is its own pnpm project, deliberately outside the workspace, and it
+      # consumes the plugin from the registry, so nothing has to be built first.
       - run: pnpm install --frozen-lockfile
         working-directory: docs/critical-script
 

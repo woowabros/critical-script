@@ -1,23 +1,18 @@
 # critical-script documentation site
 
 The documentation site published at <https://woowabros.github.io/critical-script/>. Built with
-[Astro](https://astro.build) and [Starlight](https://starlight.astro.build), and built by the plugin
-this repository ships, so the benchmark pages exercise the real thing.
+[Astro](https://astro.build) and [Starlight](https://starlight.astro.build), and built by the
+published plugin, so the benchmark pages exercise the real thing.
 
 ## Isolation from the repository
 
 This directory is **not** part of the repository's pnpm workspace. It has its own
 `pnpm-workspace.yaml` and its own `pnpm-lock.yaml`, so the site's dependencies never reach the root
-lockfile or the published SBOM. The plugin is consumed through
-`link:../../packages/vite-plugin-critical-script`, which means the plugin has to be built before the
-site is.
+lockfile or the published SBOM. The plugin comes from the registry at a pinned version rather than
+from `packages/`, so nothing in the repository has to be built first, and the site always runs
+against a release rather than the working tree.
 
 ```bash
-# once, from the repository root
-pnpm install
-pnpm --filter @woowabros/vite-plugin-critical-script build
-
-# then, in this directory
 pnpm install
 pnpm dev
 ```

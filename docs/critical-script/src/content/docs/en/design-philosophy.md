@@ -18,7 +18,7 @@ critical-script pays off most when two conditions hold at the same time.
 1. **Timing determines the outcome.** Work that only makes sense if it runs before the main JS bundle loads (API prefetching, resource preloading, webview bridges, skeleton UI adjustments, and so on).
 2. **The code to inline is more than a one-liner.** It carries some amount of logic, changes often, or is shared across several places. In that case TypeScript's static checking, module system, and IDE support help a great deal.
 
-It only works in vite-based projects.
+It only works with vite-based React frameworks that prerender HTML.
 
 ## When You Don't Need It
 

@@ -13,7 +13,7 @@
     "@astrojs/mdx": "7.0.5",
     "@astrojs/react": "6.0.2",
     "@astrojs/starlight": "0.41.6",
-    "@woowabros/vite-plugin-critical-script": "link:../../packages/vite-plugin-critical-script",
+    "@woowabros/vite-plugin-critical-script": "0.1.0",
     "astro": "7.1.6",
     "react": "19.2.8",
     "react-dom": "19.2.8"

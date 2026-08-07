@@ -37,9 +37,13 @@ jobs:
       - run: pnpm -r build
 
   # The documentation site is its own pnpm project, outside the workspace, so
-  # "pnpm -r" above does not reach it.
+  # "pnpm -r" above does not reach it. It installs the plugin from the registry, so it
+  # needs neither the root install nor a prior build of the package.
   docs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs/critical-script
     steps:
       - uses: actions/checkout@v7
 
@@ -49,16 +53,10 @@ jobs:
         with:
           node-version: 24.15.0
           cache: pnpm
+          cache-dependency-path: docs/critical-script/pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
-
-      - run: pnpm --filter @woowabros/vite-plugin-critical-script build
-
-      - run: pnpm install --frozen-lockfile
-        working-directory: docs/critical-script
 
       - run: pnpm typecheck
-        working-directory: docs/critical-script
 
       - run: pnpm build
-        working-directory: docs/critical-script
