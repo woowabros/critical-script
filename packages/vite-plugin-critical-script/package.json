@@ -54,7 +54,7 @@
     "tsdown": "0.20.1",
     "typescript": "catalog:",
     "vite": "5.4.21",
-    "vitest": "3.2.6"
+    "vitest": "4.1.10"
   },
   "peerDependencies": {
     "@types/react": "^17 || ^18 || ^19"
