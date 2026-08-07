@@ -63,6 +63,9 @@ export default function Home() {
 
 ## Documentation
 
+The full documentation, including a benchmark you can run in your browser, is published at
+**<https://woowabros.github.io/critical-script/>**.
+
 - [Getting Started](./docs/en/getting-started.md): installation, usage, output example, and TypeScript setup.
 - [Design Philosophy](./docs/en/design-philosophy.md): what belongs in an inline script, and when to use this plugin.
 - [Use Cases](./docs/en/use-cases.md): API prefetching, resource preloading, webview native bridges, and LCP optimization.

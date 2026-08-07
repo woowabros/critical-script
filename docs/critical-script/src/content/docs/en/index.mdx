@@ -1,0 +1,42 @@
+---
+title: critical-script
+description: A vite plugin that inlines TypeScript modules as critical HTML scripts that run before the main JS bundle.
+template: splash
+hero:
+  tagline: Turn a TypeScript module into an inline script that runs before your main bundle, for API prefetch, asset preload, webview bridges, and LCP.
+  actions:
+    - text: Getting Started
+      link: /critical-script/en/getting-started
+      icon: right-arrow
+    - text: Full benchmark
+      link: /critical-script/en/benchmark
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/woowabros/critical-script
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components'
+import BenchmarkPreview from '../../../components/BenchmarkPreview'
+
+<BenchmarkPreview client:load locale='en' />
+
+<CardGrid>
+  <Card title="Written in TypeScript" icon="seti:typescript">
+    Type-checked at compile time, then compiled and minified by esbuild so the inline script stays as
+    small as possible.
+  </Card>
+  <Card title="Bounded by the build" icon="approve-check">
+    The `outputSizeLimit` option, 8192 bytes by default, fails the build when the inline script grows
+    past the limit.
+  </Card>
+  <Card title="Built for timing" icon="rocket">
+    For work whose value depends on running early, such as API prefetching, resource preloading, and
+    webview native bridges.
+  </Card>
+  <Card title="Used in production" icon="star">
+    Running across Baemin webview surfaces, where the API prefetch pattern improved LCP by 30–40% on
+    the commerce webview service.
+  </Card>
+</CardGrid>

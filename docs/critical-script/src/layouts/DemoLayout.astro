@@ -1,0 +1,34 @@
+---
+import DemoScreen from '../components/DemoScreen'
+import CriticalScript from '../critical/prefetch.critical.ts?as-critical-script'
+import type { DemoVariant } from '../lib/demo'
+import '../styles/tokens.css'
+import '../styles/stage.css'
+
+interface Props {
+  variant: DemoVariant
+}
+
+const { variant } = Astro.props
+
+// Both variants share this layout, so the only difference between the two documents
+// is the inline script itself.
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>critical-script demo ({variant} critical script)</title>
+    {
+      /* The plugin turns prefetch.critical.ts into this <script>. It sits in <head> ahead of
+         the module bundle Astro appends, which is the only placement where an inline
+         critical script can win the race against the bundle. */
+    }
+    {variant === 'with' && <CriticalScript />}
+  </head>
+  <body>
+    <DemoScreen client:load variant={variant} />
+  </body>
+</html>

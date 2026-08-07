@@ -1,0 +1,70 @@
+/* Shared design tokens. Loaded by Starlight pages and by the standalone benchmark page,
+   so both surfaces share one palette, one type scale, and one set of radii.
+
+   The site is dark only. There is no light variant and no theme toggle, so every
+   token below is the single source of truth for colour. */
+
+:root {
+  color-scheme: dark;
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Pretendard Variable', Pretendard, 'Inter', system-ui, 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'JetBrains Mono', 'Menlo', monospace;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-full: 999px;
+
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Surfaces, stepped up from the page background. */
+  --surface-0: #222222;
+  --surface-1: #282a2a;
+  --surface-2: #2f3232;
+  --surface-3: #383c3c;
+  --line: #3a3e3e;
+  --line-strong: #4d5252;
+
+  --ink-1: #f4f6f6;
+  --ink-2: #c2c8c8;
+  --ink-3: #8d9494;
+  --ink-4: #6b7272;
+
+  /* Key colour. Bright enough to read as the highlight, so it carries dark text on top. */
+  --brand: #0cefd3;
+  --brand-strong: #6df6e4;
+  --brand-deep: #0bbfa9;
+  --brand-dim: #0a7f72;
+  --brand-wash: rgb(12 239 211 / 12%);
+  --brand-edge: rgb(12 239 211 / 38%);
+
+  /* Second accent. Carries the slow side of comparisons and anything that must read as
+     "not the key colour", so the key colour keeps meaning one thing. */
+  --accent-2: #b48cff;
+  --accent-2-strong: #d0b6ff;
+  --accent-2-dim: #6d47b8;
+  --accent-2-wash: rgb(180 140 255 / 12%);
+
+  /* Semantic colours. */
+  --info: #6cb6ff;
+  --info-wash: rgb(108 182 255 / 12%);
+  --ok: #5fd98a;
+  --ok-wash: rgb(95 217 138 / 12%);
+  --warn: #f5c451;
+  --warn-wash: rgb(245 196 81 / 12%);
+  --slow: #ff8a6b;
+  --slow-wash: rgb(255 138 107 / 12%);
+  --danger: #ff6b6b;
+
+  /* Code surfaces. Clearly below the page background, so a block reads as its own
+     object without a heavy border, and the tab bar stays distinguishable from it. */
+  --code-bg: #17191a;
+  --code-chrome: #202323;
+  --code-line: #363c3d;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 35%);
+  --shadow-md: 0 8px 24px -8px rgb(0 0 0 / 55%);
+  --shadow-lg: 0 24px 60px -24px rgb(0 0 0 / 65%);
+}

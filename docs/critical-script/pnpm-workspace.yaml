@@ -1,0 +1,11 @@
+# This documentation site is deliberately outside the repository workspace, so its
+# dependencies never reach the root lockfile or the published SBOM. This file
+# makes the directory its own pnpm root, so a plain "pnpm install" here
+# installs the site rather than the repository.
+packages: []
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+minimumReleaseAge: 2880

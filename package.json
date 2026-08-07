@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "if [[ -x \"$(command -v husky)\" ]]; then husky install; fi",
     "lint-staged": "lint-staged",
-    "sbom": "rm -rf _artifacts/sbom && mkdir -p _artifacts/sbom && cdxgen --type js --format cyclonedx --json-pretty --output _artifacts/sbom/sbom.cyclonedx.json && cdxgen --type js --format spdx --json-pretty --output _artifacts/sbom/sbom.spdx.json"
+    "sbom": "rm -rf _artifacts/sbom && mkdir -p _artifacts/sbom && cdxgen --type js --format cyclonedx --json-pretty --exclude 'docs/**' --exclude 'examples/**' --output _artifacts/sbom/sbom.cyclonedx.json && cdxgen --type js --format spdx --json-pretty --exclude 'docs/**' --exclude 'examples/**' --output _artifacts/sbom/sbom.spdx.json"
   },
   "packageManager": "pnpm@11.1.2",
   "devEngines": {

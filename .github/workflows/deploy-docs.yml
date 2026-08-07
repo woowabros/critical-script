@@ -1,0 +1,57 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/critical-script/**'
+      - 'packages/vite-plugin-critical-script/**'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+
+      # The site is its own pnpm project, deliberately outside the workspace, and it
+      # consumes the plugin from the registry, so nothing has to be built first.
+      - run: pnpm install --frozen-lockfile
+        working-directory: docs/critical-script
+
+      - run: pnpm build
+        working-directory: docs/critical-script
+
+      # No configure-pages step: Pages is already set to build from GitHub Actions, and
+      # the base path is fixed in astro.config.ts, so there is nothing to look up. Keeping
+      # it out lets this job stay on contents:read.
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/critical-script/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

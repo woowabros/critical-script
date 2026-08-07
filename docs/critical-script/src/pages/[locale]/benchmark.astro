@@ -1,0 +1,47 @@
+---
+import BenchmarkStage from '../../components/BenchmarkStage'
+import { LOCALES, STAGE_STRINGS, type Locale } from '../../lib/i18n'
+import '../../styles/tokens.css'
+import '../../styles/stage.css'
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }))
+}
+
+const locale = Astro.params.locale as Locale
+const strings = STAGE_STRINGS[locale]
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const other: Locale = locale === 'en' ? 'ko' : 'en'
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{strings.title} | critical-script</title>
+    <meta name="description" content={strings.description} />
+    <link rel="icon" href={`${base}/favicon.png`} type="image/png" />
+  </head>
+  <body>
+    <header class="site-bar">
+      <a class="site-mark" href={`${base}/${locale}`}>
+        <img alt="" height="40" src={`${base}/favicon.png`} width="40" />
+        critical-script
+      </a>
+      <nav>
+        <a href={`${base}/${locale}/getting-started`}>{strings.backToDocs}</a>
+        <a href={`${base}/${other}/benchmark`}>{other === 'ko' ? '한국어' : 'English'}</a>
+        <a href="https://github.com/woowabros/critical-script" rel="noreferrer" target="_blank">GitHub</a>
+      </nav>
+    </header>
+
+    <main class="stage-shell">
+      <div class="stage-intro">
+        <h1>{strings.title}</h1>
+        <p>{strings.description}</p>
+      </div>
+
+      <BenchmarkStage client:load locale={locale} />
+    </main>
+  </body>
+</html>

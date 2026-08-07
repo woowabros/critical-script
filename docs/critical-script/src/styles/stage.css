@@ -1,0 +1,646 @@
+/* The standalone benchmark page and the two demo documents it loads. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background: var(--surface-0);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  letter-spacing: -0.011em;
+  line-height: 1.6;
+  margin: 0;
+  /* Korean breaks between words rather than mid-word. */
+  word-break: keep-all;
+}
+
+h1,
+h2 {
+  color: var(--ink-1);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--brand-strong);
+}
+
+/* Top bar */
+
+/* Sized to match the documentation header exactly: 4rem tall, 0.75rem of vertical
+   padding, a 2.5rem mark and an 18px wordmark. The two surfaces should not look like
+   different sites. */
+.site-bar {
+  align-items: center;
+  backdrop-filter: blur(12px) saturate(140%);
+  background: color-mix(in oklab, var(--surface-0) 82%, transparent);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  min-block-size: 4rem;
+  padding: 0.75rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-mark {
+  align-items: center;
+  color: var(--ink-1);
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-weight: 600;
+  gap: 0.55rem;
+  letter-spacing: -0.03em;
+}
+
+.site-mark img {
+  block-size: 2.5rem;
+  border-radius: 0.35rem;
+  display: block;
+  inline-size: 2.5rem;
+}
+
+.site-bar nav {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.site-bar nav a {
+  color: var(--ink-3);
+}
+
+.site-bar nav a:hover {
+  color: var(--ink-1);
+}
+
+/* Shell */
+
+.stage-shell {
+  margin: 0 auto;
+  max-width: 76rem;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 2.5rem) 5rem;
+}
+
+/* No background glow here either: it clipped at the shell's edges. */
+.stage-intro {
+  margin-bottom: 2.5rem;
+  max-width: 46rem;
+}
+
+.stage-intro h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.stage-intro p {
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+  margin: 0.9rem 0 0;
+}
+
+/* Controls */
+
+.stage-controls {
+  align-items: start;
+  background: linear-gradient(180deg, var(--surface-1), var(--surface-0));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: auto 1fr 1fr;
+  padding: 1.25rem;
+}
+
+@media (max-width: 46rem) {
+  .stage-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stage-run {
+  background: var(--brand);
+  border: 0;
+  border-radius: var(--radius-full);
+  color: var(--surface-0);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  padding: 0.7rem 1.4rem;
+  transition:
+    transform 0.18s var(--ease),
+    box-shadow 0.18s var(--ease),
+    opacity 0.18s var(--ease);
+  white-space: nowrap;
+}
+
+.stage-run:hover:not([disabled]) {
+  box-shadow: 0 8px 24px -10px var(--brand);
+  transform: translateY(-1px);
+}
+
+.stage-run[disabled] {
+  cursor: progress;
+  opacity: 0.55;
+}
+
+.stage-field {
+  border: 0;
+  margin: 0;
+  min-inline-size: 0;
+  padding: 0;
+}
+
+.stage-field legend {
+  color: var(--ink-1);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0;
+}
+
+.stage-field p {
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+  margin: 0.5rem 0 0;
+}
+
+.stage-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+}
+
+.stage-choices button {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  color: var(--ink-2);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  padding: 0.25rem 0.7rem;
+  transition: all 0.16s var(--ease);
+}
+
+.stage-choices button:hover:not([disabled]) {
+  border-color: var(--line-strong);
+  color: var(--ink-1);
+}
+
+.stage-choices button[aria-pressed='true'] {
+  background: var(--brand-wash);
+  border-color: color-mix(in oklab, var(--brand) 45%, transparent);
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+
+.stage-choices button[disabled] {
+  opacity: 0.5;
+}
+
+/* Headline */
+
+.stage-headline {
+  color: var(--ink-3);
+  font-size: 1rem;
+  margin: 1.75rem 0 1rem;
+  min-block-size: 2.5rem;
+}
+
+.stage-headline strong {
+  color: var(--brand-strong);
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.stage-stalled {
+  color: var(--slow);
+  font-size: 0.9375rem;
+}
+
+.stage-live {
+  color: var(--ink-2);
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* Split panels */
+
+.stage-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 52rem) {
+  .stage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* The two panels carry different accents, so a glance at the chrome already says
+   which side is which before any number lands. */
+.panel-with {
+  border-color: color-mix(in oklab, var(--brand) 35%, var(--line));
+  box-shadow:
+    0 0 0 1px var(--brand-edge),
+    var(--shadow-md);
+}
+
+.panel-without {
+  border-color: color-mix(in oklab, var(--slow) 22%, var(--line));
+}
+
+.panel-head {
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem 1.1rem;
+}
+
+.panel-head h2 {
+  font-size: 1rem;
+}
+
+.panel-with .panel-head h2 {
+  color: var(--brand-strong);
+}
+
+.panel-without .panel-head h2 {
+  color: var(--slow);
+}
+
+.panel-head p {
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+  margin: 0.3rem 0 0;
+}
+
+.panel-clock {
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.panel-with .panel-clock.is-done {
+  color: var(--brand-strong);
+}
+
+.panel-without .panel-clock.is-done {
+  color: var(--slow);
+}
+
+.panel-frame {
+  background: var(--surface-0);
+  block-size: 21rem;
+  position: relative;
+}
+
+.panel-frame iframe {
+  block-size: 100%;
+  border: 0;
+  display: block;
+  inline-size: 100%;
+}
+
+.panel-empty {
+  color: var(--ink-3);
+  font-size: 0.875rem;
+  inset: 0;
+  display: grid;
+  margin: 0;
+  padding: 2rem;
+  place-content: center;
+  position: absolute;
+  text-align: center;
+}
+
+.panel-foot {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  gap: 0.4rem 1.1rem;
+  padding: 0.75rem 1.1rem;
+}
+
+.panel-foot b {
+  color: var(--ink-1);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  margin-inline-start: 0.4rem;
+}
+
+.panel-foot a {
+  margin-inline-start: auto;
+}
+
+/* Timeline */
+
+.stage-timeline,
+.stage-notes {
+  margin-top: 2.5rem;
+}
+
+.stage-timeline h2,
+.stage-notes h2 {
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stage-timeline ul {
+  display: grid;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.stage-timeline li {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: minmax(8rem, 14rem) 1fr auto;
+}
+
+@media (max-width: 40rem) {
+  .stage-timeline li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .timeline-label {
+    grid-column: 1 / -1;
+  }
+}
+
+.timeline-label {
+  color: var(--ink-2);
+  font-size: 0.875rem;
+}
+
+.timeline-track {
+  background: var(--surface-2);
+  border-radius: var(--radius-full);
+  display: flex;
+  block-size: 0.75rem;
+  overflow: hidden;
+}
+
+.timeline-wait {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--line-strong),
+    var(--line-strong) 4px,
+    var(--surface-3) 4px,
+    var(--surface-3) 8px
+  );
+}
+
+.timeline-net {
+  background: linear-gradient(90deg, var(--brand-dim), var(--brand));
+}
+
+.timeline-value {
+  color: var(--ink-1);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-legend {
+  align-items: center;
+  color: var(--ink-3);
+  display: flex;
+  font-size: 0.8125rem;
+  gap: 0.4rem;
+  margin: 0.9rem 0 0;
+}
+
+.timeline-legend .key {
+  border-radius: 0.2rem;
+  block-size: 0.7rem;
+  display: inline-block;
+  inline-size: 1.4rem;
+}
+
+.timeline-legend .key-net {
+  background: var(--brand);
+  margin-inline-start: 1rem;
+}
+
+.timeline-legend .key-wait {
+  background: var(--line-strong);
+}
+
+/* Notes */
+
+.stage-notes {
+  border-inline-start: 2px solid var(--info);
+  padding-inline-start: 1rem;
+}
+
+.stage-notes h2 {
+  color: var(--info);
+}
+
+.stage-notes ul {
+  color: var(--ink-3);
+  display: grid;
+  font-size: 0.875rem;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding-inline-start: 1.1rem;
+}
+
+/* ---- The demo documents loaded inside the panels ----
+
+   These render inside a fixed-height iframe, so everything here is sized to fit the
+   shortest panel without scrolling. The hero is cropped to a banner strip rather than
+   shown at its full 2:1 ratio. */
+
+.demo {
+  padding: 0.85rem 1rem;
+}
+
+.demo-head {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+
+.demo-badge {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  color: var(--ink-3);
+  font-size: 0.6875rem;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.demo-with .demo-badge {
+  background: var(--brand-wash);
+  border-color: color-mix(in oklab, var(--brand) 40%, transparent);
+  color: var(--brand-strong);
+}
+
+.demo-stage {
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  /* Stays on the right whether or not the badge is rendered beside it. */
+  margin-inline-start: auto;
+}
+
+.demo-without .demo-badge {
+  background: var(--slow-wash);
+  border-color: color-mix(in oklab, var(--slow) 40%, transparent);
+  color: var(--slow);
+}
+
+.demo-stage-booting .demo-stage {
+  color: var(--ink-4);
+}
+
+.demo-stage-requesting .demo-stage {
+  color: var(--warn);
+}
+
+.demo-stage-ready .demo-stage {
+  color: var(--ok);
+}
+
+.demo-card h1 {
+  font-size: 0.9375rem;
+  margin-bottom: 0.5rem;
+}
+
+.demo-card img {
+  block-size: 8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+}
+
+.demo-card ul {
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  margin: 0.6rem 0 0;
+  padding-inline-start: 1rem;
+}
+
+.demo-skeleton {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.demo-skeleton span {
+  animation: demo-pulse 1.4s var(--ease) infinite;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  display: block;
+}
+
+/* Matched to the loaded card, so nothing shifts when the content lands. */
+.demo-skeleton-title {
+  block-size: 1.1rem;
+  inline-size: 55%;
+}
+
+.demo-skeleton-media {
+  block-size: 8rem;
+}
+
+.demo-skeleton-line {
+  block-size: 0.7rem;
+}
+
+.demo-skeleton-line.short {
+  inline-size: 70%;
+}
+
+@keyframes demo-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-skeleton span {
+    animation: none;
+  }
+}
+
+.demo-metrics {
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 1.25rem;
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
+}
+
+.demo-metrics dt {
+  color: var(--ink-3);
+  font-size: 0.625rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.demo-metrics dd {
+  color: var(--ink-1);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  margin: 0.1rem 0 0;
+}
+
+.demo-problem {
+  color: var(--slow);
+  font-size: 0.8125rem;
+}

@@ -63,6 +63,9 @@ export default function Home() {
 
 ## 문서
 
+브라우저에서 직접 실행하는 벤치마크를 포함한 전체 문서는
+**<https://woowabros.github.io/critical-script/>** 에 게시되어 있습니다.
+
 - [시작하기](./docs/ko/getting-started.md): 설치 방법, 사용법, 출력 예시, TypeScript 설정을 확인할 수 있습니다.
 - [설계 원칙](./docs/ko/design-philosophy.md): 인라인 스크립트에 무엇을 담아야 하는지, 언제 이 플러그인을 쓰는지 설명합니다.
 - [활용 사례](./docs/ko/use-cases.md): API Prefech, 리소스 프리로드, 웹뷰 네이티브 브릿지, LCP 최적화 사례를 담았습니다.
