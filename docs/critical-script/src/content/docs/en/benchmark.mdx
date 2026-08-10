@@ -1,0 +1,12 @@
+---
+title: The critical-script demo
+description: Compares the same screen before and after critical-script moves the API call earlier. A service worker throttles the connection, so both pages load under something close to production conditions.
+---
+
+import BenchmarkStage from '../../../components/BenchmarkStage'
+
+{/* `not-content` keeps Starlight's article styles off the benchmark's own headings and lists. */}
+
+<div class='not-content'>
+  <BenchmarkStage client:load locale='en' />
+</div>

@@ -40,7 +40,7 @@ criticalScriptPlugin({
 })
 ```
 
-## Critical Script Component Props
+## `<CriticalScript />` component props
 
 An imported critical script component accepts the standard HTML `<script>` attributes:
 

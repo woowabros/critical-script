@@ -42,7 +42,7 @@ criticalScriptPlugin({
 })
 ```
 
-## Critical Script 컴포넌트 Props
+## `<CriticalScript />` 컴포넌트 Props
 
 import한 critical script 컴포넌트는 표준 HTML `<script>` 요소의 속성을 모두 지원합니다:
 

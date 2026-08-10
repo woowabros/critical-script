@@ -257,6 +257,7 @@ header.header {
    Starlight's default auto-fill would pick the column count from the available width,
    and its `stagger` prop offsets alternate columns; neither is wanted here. */
 .card-grid {
+  gap: 1.25rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -268,13 +269,21 @@ header.header {
   .card-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .card {
+    padding: 1.25rem;
+  }
 }
 
+/* A step down from Starlight's own sizing. At the default the four of them read as the main
+   content of the page, when what they are is a list of what the plugin does. */
 .card {
   background: linear-gradient(180deg, var(--surface-1), var(--surface-0));
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  gap: 0.6rem;
+  padding: 1.5rem;
   transition:
     border-color 0.2s var(--ease),
     transform 0.2s var(--ease),
@@ -289,211 +298,24 @@ header.header {
 
 .card .title {
   color: var(--ink-1);
+  font-size: 1.125rem;
+  gap: 0.7rem;
   letter-spacing: -0.015em;
 }
 
+.card .body {
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+/* The frame is the glyph's own box, sized in `em` from the title beside it, so it came down
+   with the title. Only the padding needs trimming, or it would eat into the smaller box. */
 .card .icon {
   background: var(--brand-wash);
   border: 1px solid color-mix(in oklab, var(--brand) 30%, transparent);
   border-radius: var(--radius-md);
   color: var(--brand-strong);
-  padding: 0.4rem;
-}
-
-/* The compact benchmark on the landing page. It runs on load, so it has to hold its
-   own space from the first paint rather than growing once results arrive. */
-.bp {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  margin-block: 2.5rem;
-  padding: 1.25rem;
-}
-
-.bp-head {
-  align-items: start;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
-.bp-head h2 {
-  color: var(--ink-1);
-  font-size: var(--sl-text-h4);
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-
-.bp-head p {
-  color: var(--ink-3);
-  font-size: var(--sl-text-sm);
-  margin: 0.4rem 0 0;
-  max-width: 44rem;
-}
-
-.bp-actions {
-  align-items: center;
-  display: flex;
-  gap: 1rem;
-}
-
-.bp-run {
-  background: var(--brand);
-  border: 0;
-  border-radius: var(--radius-full);
-  color: var(--surface-0);
-  cursor: pointer;
-  font: inherit;
-  font-size: var(--sl-text-sm);
-  font-weight: 650;
-  padding: 0.45rem 1.05rem;
-  transition:
-    transform 0.18s var(--ease),
-    opacity 0.18s var(--ease);
-  white-space: nowrap;
-}
-
-.bp-run:hover:not([disabled]) {
-  transform: translateY(-1px);
-}
-
-.bp-run[disabled] {
-  cursor: progress;
-  opacity: 0.55;
-}
-
-/* Inside .not-content Starlight's link styles do not apply, so the anchor would fall
-   back to the browser default blue with an underline. */
-.bp-more {
-  color: var(--brand);
-  font-size: var(--sl-text-sm);
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.bp-more:hover {
-  color: var(--brand-strong);
-  text-decoration: underline;
-}
-
-.bp-verdict {
-  color: var(--ink-3);
-  font-size: var(--sl-text-sm);
-  margin: 1rem 0 0.75rem;
-  min-block-size: 2.25rem;
-}
-
-.bp-verdict strong {
-  color: var(--brand-strong);
-  font-size: 1.75rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
-}
-
-.bp-live {
-  color: var(--ink-2);
-  font-size: 1.75rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
-}
-
-.bp-stalled {
-  color: var(--slow);
-}
-
-.bp-grid {
-  display: grid;
-  gap: 0.9rem;
-  grid-template-columns: 1fr 1fr;
-}
-
-@media (max-width: 44rem) {
-  .bp-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.bp-panel {
-  background: var(--surface-1);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-.bp-with {
-  border-color: color-mix(in oklab, var(--brand) 35%, var(--line));
-}
-
-.bp-without {
-  border-color: color-mix(in oklab, var(--slow) 22%, var(--line));
-}
-
-.bp-panel > header {
-  align-items: center;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  gap: 0.75rem;
-  justify-content: space-between;
-  padding: 0.6rem 0.85rem;
-}
-
-.bp-panel h3 {
-  font-size: var(--sl-text-sm);
-  letter-spacing: -0.01em;
-  margin: 0;
-}
-
-.bp-with h3 {
-  color: var(--brand-strong);
-}
-
-.bp-without h3 {
-  color: var(--slow);
-}
-
-.bp-clock {
-  color: var(--ink-3);
-  font-family: var(--font-mono);
-  font-size: var(--sl-text-sm);
-  font-variant-numeric: tabular-nums;
-}
-
-/* Tall enough for the demo card at its longest, with headroom for font metrics that
-   differ per platform and locale, so the frame never scrolls. */
-.bp-frame {
-  background: var(--surface-0);
-  block-size: 18rem;
-}
-
-.bp-frame iframe {
-  block-size: 100%;
-  border: 0;
-  display: block;
-  inline-size: 100%;
-}
-
-.bp-panel > footer {
-  border-top: 1px solid var(--line);
-  color: var(--ink-3);
-  display: flex;
-  flex-wrap: wrap;
-  font-size: var(--sl-text-xs);
-  gap: 0.25rem 1rem;
-  padding: 0.55rem 0.85rem;
-}
-
-.bp-panel > footer b {
-  color: var(--ink-1);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  margin-inline-start: 0.4rem;
-}
-
-.bp-note {
-  color: var(--ink-4);
-  font-size: var(--sl-text-xs);
-  margin: 0.9rem 0 0;
+  padding: 0.28rem;
 }
 
 /* Asides, pagination, footer. */
