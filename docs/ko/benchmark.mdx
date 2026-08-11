@@ -1,0 +1,12 @@
+---
+title: 벤치마크
+description: critical-script가 메인 JavaScript 번들보다 먼저 API 요청을 시작할 때 화면이 얼마나 빨리 준비되는지 확인합니다.
+---
+
+import BenchmarkStage from '../src/components/BenchmarkStage'
+
+{/* `not-content` keeps Starlight's article styles off the benchmark's own headings and lists. */}
+
+<div class='not-content'>
+  <BenchmarkStage client:load locale='ko' />
+</div>
