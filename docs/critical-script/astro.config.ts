@@ -2,6 +2,7 @@ import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import starlight from '@astrojs/starlight'
 import { criticalScriptPlugin } from '@woowabros/vite-plugin-critical-script'
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import { defineConfig } from 'astro/config'
 
 import { cleanUrls } from './src/integrations/clean-urls'
@@ -26,6 +27,8 @@ export default defineConfig({
         ThemeSelect: './src/overrides/ThemeSelect.astro',
       },
       credits: false,
+      // chart.css is not here: the two components that draw a chart import it themselves, so
+      // the documentation pages that draw none do not carry it.
       customCss: ['./src/styles/tokens.css', './src/styles/custom.css'],
       defaultLocale: 'en',
       editLink: {
@@ -81,9 +84,7 @@ export default defineConfig({
           translations: { ko: '레퍼런스' },
         },
         {
-          // Its own route rather than a docs page, because the split view needs the
-          // whole viewport and full control over each document's <head>.
-          items: [{ label: 'Side by side', link: '/benchmark', translations: { ko: '나란히 비교' } }],
+          items: ['benchmark'],
           label: 'Benchmark',
           translations: { ko: '벤치마크' },
         },
@@ -100,6 +101,9 @@ export default defineConfig({
   trailingSlash: 'never',
   vite: {
     plugins: [
+      // Component styles are written in TypeScript and compiled to plain CSS at build time.
+      // See src/styles/vars.css.ts for how they reach the tokens.
+      vanillaExtractPlugin(),
       criticalScriptPlugin({
         define: {
           // The demo API lives under the GitHub Pages base path, and the inline script

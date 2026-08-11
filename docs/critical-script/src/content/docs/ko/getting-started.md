@@ -1,6 +1,6 @@
 ---
 title: 시작하기
-description: 플러그인을 설치하고 vite.config.ts에 등록해 첫 크리티컬 스크립트를 인라인합니다.
+description: 플러그인을 설치하고 vite.config.ts에 등록해 첫 인라인 스크립트를 만듭니다.
 sidebar:
   order: 1
 ---

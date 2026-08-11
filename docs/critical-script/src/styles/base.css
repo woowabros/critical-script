@@ -1,0 +1,44 @@
+/* What the demo documents start from. They are the only pages here outside Starlight, which
+   gives the documentation its own base.
+
+   Global on purpose: a reset has to reach the markup the island renders, which a scoped style
+   block cannot do, and the rest is what the page inherits from. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background: var(--surface-0);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  letter-spacing: -0.011em;
+  line-height: 1.6;
+  margin: 0;
+  /* Korean breaks between words rather than mid-word. */
+  word-break: keep-all;
+}
+
+h1,
+h2 {
+  color: var(--ink-1);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--brand-strong);
+}
