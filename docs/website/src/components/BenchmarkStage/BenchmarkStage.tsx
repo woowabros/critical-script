@@ -1,4 +1,4 @@
-import { type ReactElement, type ReactNode, useState } from 'react'
+import { type ReactElement, type ReactNode, useId, useState } from 'react'
 
 import {
   DEFAULT_BOOT_WORK,
@@ -74,6 +74,7 @@ export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): React
    */
   const [applied, setApplied] = useState<Conditions>(DEFAULTS)
   const { axis, run, running, stalled, start, throttled, timeline } = useBenchmark(chosen)
+  const fieldId = useId()
 
   const begin = (): void => {
     setApplied(chosen)
@@ -102,7 +103,7 @@ export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): React
           </summary>
 
           <div className={styles.fields}>
-            <Field hint={strings.networkHint} id='stage-network' label={strings.network}>
+            <Field hint={strings.networkHint} id={`${fieldId}-network`} label={strings.network}>
               {NETWORK_CHOICES.map((choice) => (
                 <button
                   aria-pressed={network === choice}
@@ -116,7 +117,7 @@ export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): React
               ))}
             </Field>
 
-            <Field hint={strings.serverWorkHint} id='stage-server' label={strings.serverWork}>
+            <Field hint={strings.serverWorkHint} id={`${fieldId}-server`} label={strings.serverWork}>
               {WORK_CHOICES.map((choice) => (
                 <button
                   aria-pressed={serverWork === choice}
@@ -130,7 +131,7 @@ export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): React
               ))}
             </Field>
 
-            <Field hint={strings.bootWorkHint} id='stage-boot' label={strings.bootWork}>
+            <Field hint={strings.bootWorkHint} id={`${fieldId}-boot`} label={strings.bootWork}>
               {WORK_CHOICES.map((choice) => (
                 <button
                   aria-pressed={bootWork === choice}

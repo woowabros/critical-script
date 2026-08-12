@@ -131,7 +131,7 @@ export const DEFAULT_SERVER_WORK = 200
 export const DEFAULT_BOOT_WORK = 200
 
 export function isNetwork(value: null | string): value is Network {
-  return value !== null && value in NETWORKS
+  return value !== null && Object.prototype.hasOwnProperty.call(NETWORKS, value)
 }
 
 /** Kept in step with the same ceilings in the worker. */

@@ -12,7 +12,7 @@ sidebar:
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `outputSizeLimit` | `number` | `8192` | Maximum size (in bytes) of the compiled inline script. Exceeding it fails the build. |
-| `define` | `Record<string, any>` | `{}` | Passed directly to `define` in esbuild's build options. Commonly used to inject environment variables at build time. |
+| `define` | `Record<string, string>` | `{}` | Passed directly to `define` in esbuild's build options. Commonly used to inject environment variables at build time. |
 
 ### outputSizeLimit
 

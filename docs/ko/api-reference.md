@@ -12,7 +12,7 @@ sidebar:
 | 옵션 | 타입 | 기본값 | 설명 |
 |------|------|--------|------|
 | `outputSizeLimit` | `number` | `8192` | 컴파일된 인라인 스크립트의 최대 크기(바이트)입니다. 초과하면 빌드가 실패합니다. |
-| `define` | `Record<string, any>` | `{}` | esbuild 빌드 옵션의 `define`으로 그대로 전달됩니다. 주로 빌드 시 환경 변수를 주입할 때 사용합니다. |
+| `define` | `Record<string, string>` | `{}` | esbuild 빌드 옵션의 `define`으로 그대로 전달됩니다. 주로 빌드 시 환경 변수를 주입할 때 사용합니다. |
 
 ### outputSizeLimit
 
