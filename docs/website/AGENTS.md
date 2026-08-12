@@ -57,7 +57,7 @@ import * as styles from './Waterfall.css'
 
 화면에 나오는 모든 문구는 `src/lib/i18n.ts` 에 있습니다. 한국어와 영어를 함께 고칩니다. 한쪽만 고치면 두 언어가 다른 이야기를 합니다.
 
-문서 원본은 `docs/en/`, `docs/ko/`, `docs/404.md` 에 있습니다. `src/content/docs` 아래에 사본을 만들지 않습니다.
+문서 원본은 `docs/en/`, `docs/ko/` 에 있습니다. 404 페이지는 `src/pages/404.astro` 에 구현합니다. `src/content/docs` 아래에 사본을 만들지 않습니다.
 
 벤치마크 페이지의 제목과 설명은 예외적으로 두 곳에 있습니다. Starlight 가 제목을 문자 그대로 읽어야 해서 페이지 프런트매터에도 같은 문장이 필요합니다. 한쪽을 고치면 다른 쪽도 고쳐야 합니다.
 

@@ -6,7 +6,7 @@ export const collections = {
   docs: defineCollection({
     loader: glob({
       base: new URL('../..', import.meta.url),
-      pattern: ['404.md', '{en,ko}/**/*.{md,mdx}'],
+      pattern: '{en,ko}/**/*.{md,mdx}',
     }),
     schema: docsSchema(),
   }),

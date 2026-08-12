@@ -29,6 +29,7 @@ export default defineConfig({
         ThemeSelect: './src/overrides/ThemeSelect.astro',
       },
       credits: false,
+      disable404Route: true,
       // chart.css is not here: the two components that draw a chart import it themselves, so
       // the documentation pages that draw none do not carry it.
       customCss: ['./src/styles/tokens.css', './src/styles/custom.css'],
@@ -71,6 +72,9 @@ export default defineConfig({
         ko: { label: '한국어', lang: 'ko' },
       },
       logo: { alt: '', src: './src/assets/mark.png' },
+      markdown: {
+        processedDirs: ['../en', '../ko'],
+      },
       // No search: the site is five pages per locale, and dropping it lets the
       // documentation header and the benchmark page's bar hold the same content.
       pagefind: false,

@@ -28,7 +28,7 @@ built output.
 | Path | What it holds |
 |------|---------------|
 | `../{en,ko}/` | Documentation pages loaded directly by Astro, one directory per locale. |
-| `../404.md` | The shared not-found page. |
+| `src/pages/404.astro` | The shared not-found page. |
 | `src/pages/demo/` | The two standalone benchmark pages, with and without the inline script. |
 | `src/components/DemoScreen/prefetch.critical.ts` | The module the plugin compiles into an inline script. |
 | `src/components/` | React islands: the demo screen and the benchmark runner. |
@@ -36,6 +36,7 @@ built output.
 
 ## Documentation source
 
-The site loads Markdown and MDX directly from `docs/en`, `docs/ko`, and `docs/404.md` through the
-Astro collection configured in `src/content.config.ts`. These files are both the GitHub-readable
-documentation and the published source. Do not create a second copy under `src/content/`.
+The site loads Markdown and MDX directly from `docs/en` and `docs/ko` through the Astro collection
+configured in `src/content.config.ts`. These files are both the GitHub-readable documentation and
+the published source. Do not create a second copy under `src/content/`. The not-found page is
+implemented separately in `src/pages/404.astro`.
