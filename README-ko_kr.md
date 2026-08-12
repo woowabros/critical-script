@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/woowabros/critical-script" title="critical-script - React prerender 환경을 위한 인라인 크리티컬 스크립트">
-    <img src="./docs/public/og.png" alt="critical-script — React prerender 환경을 위한 인라인 크리티컬 스크립트" height="400" />
+    <img src="./docs/assets/og.png" alt="critical-script — React prerender 환경을 위한 인라인 크리티컬 스크립트" height="400" />
   </a>
   <p>
     <a href="https://github.com/woowabros/critical-script/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>

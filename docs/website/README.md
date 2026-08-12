@@ -12,6 +12,8 @@ lockfile or the published SBOM. The plugin comes from the registry at a pinned v
 from `packages/`, so nothing in the repository has to be built first, and the site always runs
 against a release rather than the working tree.
 
+Run the following commands from `docs/website/`:
+
 ```bash
 pnpm install
 pnpm dev
@@ -25,8 +27,8 @@ built output.
 
 | Path | What it holds |
 |------|---------------|
-| `{en,ko}/` | Documentation pages loaded directly by Astro, one directory per locale. |
-| `404.md` | The shared not-found page. |
+| `../{en,ko}/` | Documentation pages loaded directly by Astro, one directory per locale. |
+| `../404.md` | The shared not-found page. |
 | `src/pages/demo/` | The two standalone benchmark pages, with and without the inline script. |
 | `src/components/DemoScreen/prefetch.critical.ts` | The module the plugin compiles into an inline script. |
 | `src/components/` | React islands: the demo screen and the benchmark runner. |

@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/woowabros/critical-script" title="critical-script - Inline critical scripts for React prerender">
-    <img src="./docs/public/og.png" alt="critical-script — Inline critical scripts for React prerender" height="400" />
+    <img src="./docs/assets/og.png" alt="critical-script — Inline critical scripts for React prerender" height="400" />
   </a>
   <p>
     <a href="https://github.com/woowabros/critical-script/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>

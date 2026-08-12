@@ -5,7 +5,7 @@ import { glob } from 'astro/loaders'
 export const collections = {
   docs: defineCollection({
     loader: glob({
-      base: new URL('..', import.meta.url),
+      base: new URL('../..', import.meta.url),
       pattern: ['404.md', '{en,ko}/**/*.{md,mdx}'],
     }),
     schema: docsSchema(),

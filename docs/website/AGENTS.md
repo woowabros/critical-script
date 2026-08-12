@@ -1,6 +1,6 @@
 # 문서 사이트 작업 규칙
 
-`docs/` 아래에서 작업할 때 따르는 규칙입니다.
+`docs/website/` 아래에서 작업할 때 따르는 규칙입니다.
 
 ## 컴포넌트 폴더 컨벤션
 
@@ -21,7 +21,7 @@ export { default } from './BenchmarkStage'
 ```
 
 ```tsx
-import BenchmarkStage from '../src/components/BenchmarkStage'
+import BenchmarkStage from '../website/src/components/BenchmarkStage'
 ```
 
 ## 무엇을 폴더 안에 두고 무엇을 밖에 둘까
@@ -57,12 +57,12 @@ import * as styles from './Waterfall.css'
 
 화면에 나오는 모든 문구는 `src/lib/i18n.ts` 에 있습니다. 한국어와 영어를 함께 고칩니다. 한쪽만 고치면 두 언어가 다른 이야기를 합니다.
 
-문서 원본은 `en/`, `ko/`, `404.md` 에 있습니다. `src/content/docs` 아래에 사본을 만들지 않습니다.
+문서 원본은 `docs/en/`, `docs/ko/`, `docs/404.md` 에 있습니다. `src/content/docs` 아래에 사본을 만들지 않습니다.
 
 벤치마크 페이지의 제목과 설명은 예외적으로 두 곳에 있습니다. Starlight 가 제목을 문자 그대로 읽어야 해서 페이지 프런트매터에도 같은 문장이 필요합니다. 한쪽을 고치면 다른 쪽도 고쳐야 합니다.
 
 ## 확인
 
-`pnpm typecheck` 와 `pnpm build` 를 통과해야 합니다. 타입스크립트 파일은 Prettier 서식을 지키고, `en/` 과 `ko/` 의 마크다운은 서식을 적용하지 않은 상태로 관리되고 있으니 건드리지 않습니다.
+`pnpm typecheck` 와 `pnpm build` 를 통과해야 합니다. 타입스크립트 파일은 Prettier 서식을 지키고, `docs/en/` 과 `docs/ko/` 의 마크다운은 서식을 적용하지 않은 상태로 관리되고 있으니 건드리지 않습니다.
 
 개발 서버가 vanilla-extract 의 파일 스코프를 잃거나 콘텐츠 목록을 찾지 못하면, 파일을 옮기거나 설정을 바꾼 뒤 캐시가 어긋난 것입니다. `node_modules/.vite` 와 `.astro` 를 지우고 다시 띄우면 해결됩니다.

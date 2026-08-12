@@ -33,7 +33,7 @@ pnpm install
 문서 사이트와 예제 앱은 루트 워크스페이스에 포함되지 않은 별도 pnpm 프로젝트입니다. 해당 영역을 수정할 때는 각 디렉터리의 의존성도 설치합니다.
 
 ```bash
-pnpm --dir docs install
+pnpm --dir docs/website install
 pnpm --dir examples/vite-react-ssg install
 ```
 
@@ -45,13 +45,15 @@ critical-script/
 │   └── vite-plugin-critical-script/  # 플러그인 소스, 테스트, 빌드 설정
 ├── examples/
 │   └── vite-react-ssg/               # Vite 기반 React SSG 예제
-├── docs/                              # Astro 및 Starlight 문서 사이트
+├── docs/
+│   ├── en/, ko/                       # 영어 및 한국어 문서 원본
+│   └── website/                       # Astro 및 Starlight 문서 사이트
 └── .github/workflows/                 # CI, 배포, 릴리스 워크플로
 ```
 
 - `packages/vite-plugin-critical-script/`는 npm에 배포되는 플러그인 패키지입니다.
 - `examples/vite-react-ssg/`는 배포된 플러그인을 사용하는 독립 실행형 예제입니다.
-- `docs/`는 자체 lockfile을 사용하는 별도 프로젝트이며, `docs/en/`과 `docs/ko/`가 문서 원본입니다.
+- `docs/website/`는 자체 lockfile을 사용하는 별도 프로젝트이며, `docs/en/`과 `docs/ko/`가 문서 원본입니다.
 
 ## 개발 및 검증
 
@@ -67,8 +69,8 @@ pnpm -r build
 문서 사이트를 수정했다면 다음 검사를 실행합니다.
 
 ```bash
-pnpm --dir docs typecheck
-pnpm --dir docs build
+pnpm --dir docs/website typecheck
+pnpm --dir docs/website build
 ```
 
 예제 앱을 수정했다면 다음 검사를 실행합니다.

@@ -31,17 +31,17 @@ jobs:
       # The site is its own pnpm project, deliberately outside the workspace, and it
       # consumes the plugin from the registry, so nothing has to be built first.
       - run: pnpm install --frozen-lockfile
-        working-directory: docs
+        working-directory: docs/website
 
       - run: pnpm build
-        working-directory: docs
+        working-directory: docs/website
 
       # No configure-pages step: Pages is already set to build from GitHub Actions, and
       # the base path is fixed in astro.config.ts, so there is nothing to look up. Keeping
       # it out lets this job stay on contents:read.
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: docs/dist
+          path: docs/website/dist
 
   deploy:
     needs: build

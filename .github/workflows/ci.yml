@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: docs
+        working-directory: docs/website
     steps:
       - uses: actions/checkout@v7
 
@@ -53,7 +53,7 @@ jobs:
         with:
           node-version: 24.15.0
           cache: pnpm
-          cache-dependency-path: docs/pnpm-lock.yaml
+          cache-dependency-path: docs/website/pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
 

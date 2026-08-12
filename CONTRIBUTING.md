@@ -33,7 +33,7 @@ pnpm install
 The documentation site and example app are separate pnpm projects outside the root workspace. Install their dependencies when working in those areas.
 
 ```bash
-pnpm --dir docs install
+pnpm --dir docs/website install
 pnpm --dir examples/vite-react-ssg install
 ```
 
@@ -45,13 +45,15 @@ critical-script/
 │   └── vite-plugin-critical-script/  # Plugin source, tests, and build configuration
 ├── examples/
 │   └── vite-react-ssg/               # Vite-based React SSG example
-├── docs/                              # Astro and Starlight documentation site
+├── docs/
+│   ├── en/, ko/                       # English and Korean documentation sources
+│   └── website/                       # Astro and Starlight documentation site
 └── .github/workflows/                 # CI, deployment, and release workflows
 ```
 
 - `packages/vite-plugin-critical-script/` contains the plugin package published to npm.
 - `examples/vite-react-ssg/` is a standalone example that uses the published plugin.
-- `docs/` is a separate project with its own lockfile. `docs/en/` and `docs/ko/` are the documentation sources.
+- `docs/website/` is a separate project with its own lockfile. `docs/en/` and `docs/ko/` are the documentation sources.
 
 ## Develop and validate
 
@@ -67,8 +69,8 @@ pnpm -r build
 When changing the documentation site, run:
 
 ```bash
-pnpm --dir docs typecheck
-pnpm --dir docs build
+pnpm --dir docs/website typecheck
+pnpm --dir docs/website build
 ```
 
 When changing the example app, run:
