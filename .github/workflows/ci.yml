@@ -19,12 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v6
-
-      - uses: actions/setup-node@v7
+      - uses: pnpm/setup@v2
         with:
-          node-version: 24.15.0
-          cache: pnpm
+          cache: true
+          install: false
 
       - run: pnpm install --frozen-lockfile
 
@@ -47,13 +45,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v6
-
-      - uses: actions/setup-node@v7
+      - uses: pnpm/setup@v2
         with:
-          node-version: 24.15.0
-          cache: pnpm
           cache-dependency-path: docs/website/pnpm-lock.yaml
+          cache: true
+          install: false
 
       - run: pnpm install --frozen-lockfile
 

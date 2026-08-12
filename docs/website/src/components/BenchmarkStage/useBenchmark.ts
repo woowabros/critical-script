@@ -94,6 +94,8 @@ export function useBenchmark({ bootWork, network, serverWork }: Options): Benchm
   const [throttled, setThrottled] = useState<boolean | null>(null)
   /** True from the press until the worker is in charge and the pages can be loaded. */
   const [arming, setArming] = useState(false)
+  /** True when a completed run has waited long enough for an open resource to close. */
+  const [tailExpired, setTailExpired] = useState(false)
 
   const startedAt = useRef<null | number>(null)
   const frame = useRef(0)
@@ -140,7 +142,7 @@ export function useBenchmark({ bootWork, network, serverWork }: Options): Benchm
   })
 
   /** Kept apart from `running`, which is about whether the run can be started again. */
-  const animating = arming || (run > 0 && !stalled && (!complete || stillOpen))
+  const animating = arming || (run > 0 && !stalled && !tailExpired && (!complete || stillOpen))
 
   const begin = useCallback((): void => {
     setResults({})
@@ -153,6 +155,7 @@ export function useBenchmark({ bootWork, network, serverWork }: Options): Benchm
     // whole run and the bars grow against marks that stay put.
     setAxis(axisBound(expect + (overhead.current[network] ?? ASSUMED_OVERHEAD_MS)))
     setStalled(false)
+    setTailExpired(false)
     ranWith.current = network
     expected.current = expect
     reported.current = new Set()
@@ -214,6 +217,16 @@ export function useBenchmark({ bootWork, network, serverWork }: Options): Benchm
 
     return () => window.clearTimeout(timer)
   }, [complete, expect, run])
+
+  // A page can report while an image is still arriving. Give late traces time to close
+  // that lane, but do not keep a frame loop alive forever when the request never finishes.
+  useEffect(() => {
+    if (!complete || !stillOpen) return
+
+    const timer = window.setTimeout(() => setTailExpired(true), STALL_MS)
+
+    return () => window.clearTimeout(timer)
+  }, [complete, stillOpen])
 
   // One wall clock for both panels, so the numbers on screen share an origin. Each demo
   // document keeps its own clock, so the tick also converts the parent's reading into it.

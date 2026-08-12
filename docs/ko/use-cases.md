@@ -31,12 +31,15 @@ API 응답에서 LCP 이미지 URL을 받아 곧바로 `<link rel="preload">`를
 
 ```ts
 // home.critical.ts
-const data = await fetch('/api/home').then((r) => r.json())
-const link = document.createElement('link')
-link.rel = 'preload'
-link.as = 'image'
-link.href = data.heroImageUrl
-document.head.appendChild(link)
+void (async () => {
+  const response = await fetch('/api/home')
+  const data = await response.json()
+  const link = document.createElement('link')
+  link.rel = 'preload'
+  link.as = 'image'
+  link.href = data.heroImageUrl
+  document.head.appendChild(link)
+})()
 ```
 
 ## 웹뷰 네이티브 브리지

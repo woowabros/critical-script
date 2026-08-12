@@ -230,24 +230,36 @@ export async function ensureThrottle(): Promise<boolean> {
     const worker = registration.installing ?? registration.waiting ?? registration.active
 
     if (worker === null) return false
-    if (worker.state === 'activated') return true
+    const target = worker
 
     // `navigator.serviceWorker.ready` only settles for a scope that covers the current
     // page, and the benchmark deliberately sits outside this one, so wait on the worker.
     return await new Promise<boolean>((resolve) => {
-      const timer = window.setTimeout(() => resolve(false), 3000)
+      let finished = false
+      let timer = 0
 
-      worker.addEventListener('statechange', () => {
-        if (worker.state === 'activated') {
-          window.clearTimeout(timer)
-          resolve(true)
+      const finish = (ready: boolean): void => {
+        if (finished) return
+
+        finished = true
+        window.clearTimeout(timer)
+        target.removeEventListener('statechange', onStateChange)
+        resolve(ready)
+      }
+
+      function onStateChange(): void {
+        if (target.state === 'activated') {
+          finish(true)
+
+          return
         }
 
-        if (worker.state === 'redundant') {
-          window.clearTimeout(timer)
-          resolve(false)
-        }
-      })
+        if (target.state === 'redundant') finish(false)
+      }
+
+      timer = window.setTimeout(() => finish(false), 3000)
+      target.addEventListener('statechange', onStateChange)
+      onStateChange()
     })
   } catch {
     return false

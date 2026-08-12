@@ -31,12 +31,15 @@ Take the LCP image URL from an API response and insert a `<link rel="preload">` 
 
 ```ts
 // home.critical.ts
-const data = await fetch('/api/home').then((r) => r.json())
-const link = document.createElement('link')
-link.rel = 'preload'
-link.as = 'image'
-link.href = data.heroImageUrl
-document.head.appendChild(link)
+void (async () => {
+  const response = await fetch('/api/home')
+  const data = await response.json()
+  const link = document.createElement('link')
+  link.rel = 'preload'
+  link.as = 'image'
+  link.href = data.heroImageUrl
+  document.head.appendChild(link)
+})()
 ```
 
 ## Native Webview Bridges

@@ -21,12 +21,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v6
-
-      - uses: actions/setup-node@v7
+      - uses: pnpm/setup@v2
         with:
-          node-version: 24.15.0
-          cache: pnpm
+          cache-dependency-path: docs/website/pnpm-lock.yaml
+          cache: true
+          install: false
 
       # The site is its own pnpm project, deliberately outside the workspace, and it
       # consumes the plugin from the registry, so nothing has to be built first.
