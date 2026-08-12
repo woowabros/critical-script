@@ -43,6 +43,31 @@ interface Options {
    * ```
    */
   define?: Record<string, string>
+  /**
+   * Language or browser versions the inline script is compiled down to.
+   * Passed straight to esbuild, so it accepts the same values.
+   *
+   * Leaving this unset applies esbuild's default of `esnext`, so setting a
+   * value that matches the browsers you support is recommended. `target`
+   * lowers syntax only: esbuild adds no API polyfills, and a critical script
+   * runs before the main bundle, so nothing the bundle would have transformed
+   * or polyfilled is available to it.
+   *
+   * 1. **The script may not run at all.** An unsupported syntax or token can
+   *    stop the whole script from running in the browser.
+   * 2. **Keep the version aligned with the application.** If the application
+   *    supports older browsers, the inline script has to be compiled down to
+   *    the same level to be safe.
+   *
+   * @default undefined (esbuild's own default, `esnext`)
+   *
+   * @example
+   * ```ts
+   * criticalScriptPlugin({ target: 'es2017' })
+   * criticalScriptPlugin({ target: ['chrome87', 'safari14'] })
+   * ```
+   */
+  target?: esbuild.BuildOptions['target']
 }
 
 const wrapScript = (scriptContent: string) =>
@@ -110,6 +135,7 @@ export function criticalScriptPlugin(options: Options = {}): Plugin {
           entryPoints: [filePath],
           format: 'iife',
           minify: true,
+          target: options.target,
           treeShaking: true,
           write: false,
         })
