@@ -64,7 +64,7 @@ export default function Home() {
 ## Documentation
 
 The full documentation, including a benchmark you can run in your browser, is published at
-**[https://woowabros.github.io/critical-script/](https://woowabros.github.io/critical-script/)**.
+**[https://woowabros.github.io/critical-script](https://woowabros.github.io/critical-script/)**.
 
 ## Contributors
 
