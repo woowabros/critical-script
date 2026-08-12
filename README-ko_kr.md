@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/woowabros/critical-script" title="critical-script - React prerender 환경을 위한 인라인 크리티컬 스크립트">
-    <img src="./docs/public/og.png" alt="critical-script — React prerender 환경을 위한 인라인 크리티컬 스크립트" height="400" />
+    <img src="./docs/assets/og.png" alt="critical-script — React prerender 환경을 위한 인라인 크리티컬 스크립트" height="400" />
   </a>
   <p>
     <a href="https://github.com/woowabros/critical-script/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
@@ -64,17 +64,11 @@ export default function Home() {
 ## 문서
 
 브라우저에서 직접 실행하는 벤치마크를 포함한 전체 문서는
-**<https://woowabros.github.io/critical-script/>** 에 게시되어 있습니다.
-
-- [시작하기](./docs/ko/getting-started.md): 설치 방법, 사용법, 출력 예시, TypeScript 설정을 확인할 수 있습니다.
-- [설계 원칙](./docs/ko/design-philosophy.md): 인라인 스크립트에 무엇을 담아야 하는지, 언제 이 플러그인을 쓰는지 설명합니다.
-- [활용 사례](./docs/ko/use-cases.md): API Prefech, 리소스 프리로드, 웹뷰 네이티브 브릿지, LCP 최적화 사례를 담았습니다.
-- [API 레퍼런스](./docs/ko/api-reference.md): 플러그인 옵션과 컴포넌트 props, 호환성 정보를 정리했습니다.
-- [주의사항 & 트러블슈팅](./docs/ko/caveats.md): 미리 알아둘 점과 자주 겪는 문제의 해결 방법을 모았습니다.
+**[https://woowabros.github.io/critical-script/](https://woowabros.github.io/critical-script/)** 에 게시되어 있습니다.
 
 ## 기여하기
 
-커뮤니티의 모든 분들의 기여를 환영합니다. [기여 가이드](./CONTRIBUTING.md)에서 개발 프로세스와 버그 수정 및 개선 제안 방법, 변경 사항을 빌드하고 테스트하는 절차를 확인하세요.
+커뮤니티의 모든 분들의 기여를 환영합니다. [기여 가이드](./CONTRIBUTING-ko_kr.md)에서 개발 프로세스와 버그 수정 및 개선 제안 방법, 변경 사항을 빌드하고 테스트하는 절차를 확인하세요.
 
 <a href="https://github.com/woowabros/critical-script/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=woowabros/critical-script" />

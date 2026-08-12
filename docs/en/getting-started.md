@@ -1,4 +1,9 @@
-# Getting Started
+---
+title: Getting Started
+description: Install the plugin, register it in vite.config.ts, and inline your first critical script.
+sidebar:
+  order: 1
+---
 
 ## Installation
 
@@ -21,7 +26,7 @@ export default defineConfig({
 })
 ```
 
-2. Write the code you want to run as critical in a separate file.
+2. Write the code you want to run before the main bundle in a separate file.
 
 ```ts
 // home.critical.ts

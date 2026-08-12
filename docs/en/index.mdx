@@ -1,0 +1,41 @@
+---
+title: critical-script
+description: A Vite plugin that turns TypeScript modules into inline critical scripts that run before the main JS bundle.
+template: splash
+hero:
+  tagline: Turn a TypeScript module into an inline script that runs before the main JS bundle to prefetch APIs, preload resources, call native webview bridges, and reduce LCP time.
+  actions:
+    - text: Getting Started
+      link: /critical-script/en/getting-started
+      icon: right-arrow
+    - text: GitHub
+      link: https://github.com/woowabros/critical-script
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components'
+import LiveBenchmark from '../website/src/components/LiveBenchmark'
+import Showcase from '../website/src/components/Showcase'
+
+<Showcase client:load locale='en' />
+
+<CardGrid>
+  <Card title='Written in TypeScript' icon='seti:typescript'>
+    Type-checked at compile time, then compiled and minified by esbuild so the inline script stays as small as possible.
+  </Card>
+  <Card title='Enforced at build time' icon='approve-check'>
+    The `outputSizeLimit` option, 8192 bytes by default, fails the build when the inline script grows past the limit.
+  </Card>
+  <Card title='Built for timing' icon='rocket'>
+    For work whose value depends on running early, such as API prefetching, resource preloading, and native webview
+    bridges.
+  </Card>
+  <Card title='Used in production' icon='star'>
+    Used across major Baemin webview surfaces, where the API prefetch pattern reduced LCP time by 30–40%.
+  </Card>
+</CardGrid>
+
+{/* Hydrated when the reader reaches it, and it loads nothing until they press run. */}
+
+<LiveBenchmark client:visible={{ rootMargin: '300px' }} locale='en' />

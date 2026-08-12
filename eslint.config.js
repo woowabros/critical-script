@@ -89,5 +89,5 @@ export default defineConfig([
   },
   // The documentation site is its own project with its own tsconfig, so the
   // type-aware rules here cannot resolve its files.
-  globalIgnores(['**/*.d.ts', '**/*.cjs', '**/*.js', '**/*.mjs', '**/tc/**/*', 'docs/critical-script/**']),
+  globalIgnores(['**/*.d.ts', '**/*.cjs', '**/*.js', '**/*.mjs', '**/tc/**/*', 'docs/**']),
 ])

@@ -30,7 +30,7 @@ interface Options {
   outputSizeLimit?: number
   /**
    * Defines values to be replaced as global constants during build.
-   * Works similar to esbuild's define option.
+   * Passed directly to esbuild's `define` option.
    *
    * @example
    * ```ts
@@ -42,7 +42,7 @@ interface Options {
    * })
    * ```
    */
-  define?: Record<string, any>
+  define?: Record<string, string>
 }
 
 const wrapScript = (scriptContent: string) =>

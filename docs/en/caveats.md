@@ -1,18 +1,23 @@
-# Caveats & Troubleshooting
+---
+title: Caveats & Troubleshooting
+description: Things to watch out for, and answers to common problems.
+sidebar:
+  order: 4
+---
 
 ## Caveats
 
 - **An inline script is part of the HTML.** External and CDN caching do not apply to it; it follows the caching policy of the HTML itself.
 - **Inline only the minimum.** critical-script is a tool for work that **only makes sense if it runs before the main JS bundle loads**. Heavy logic and large libraries must be split into the regular JS bundle for the tool to be worth using. The `outputSizeLimit` default of 8192 bytes enforces this principle at build time (see [API Reference > outputSizeLimit](./api-reference.md#outputsizelimit) for the full rationale).
-- **All external dependencies end up in the inline bundle.** Every library imported inside `critical.ts` is inlined, so writing in vanilla JS is preferable where possible.
-- **Works in both dev and production.** It uses vite's `transformIndexHtml` hook, so inlining behaves the same on the dev server.
+- **Importing external dependencies increases the inline script size.** Every library imported inside `critical.ts` is included in the inline bundle, so writing in vanilla JS is preferable where possible.
+- **The inline script has to be rendered to HTML.** The imported component emits a `<script>` tag while React renders, so the plugin pays off in setups that produce HTML at build time or on the server, such as [react-router](https://github.com/remix-run/react-router) in framework mode and [@tanstack/react-start](https://github.com/TanStack/router).
 - **Hydration applies in SSR environments.** The `<CriticalScript />` component sets `suppressHydrationWarning` automatically.
 
 ## Troubleshooting
 
 **Q. The build fails because `outputSizeLimit` was exceeded.**
 
-Reduce the imports in `critical.ts` or simplify the code. If it depends on a large library, rewriting it in vanilla JS is recommended. To raise the threshold, adjust the plugin's `outputSizeLimit` option, but keep the whole HTML within 14KB.
+Reduce the imports in `critical.ts` or simplify the code. If it depends on a large library, rewriting it in vanilla JS is recommended. To raise the threshold, adjust the plugin's `outputSizeLimit` option. The inline script ships with the HTML on every request, so keep it as small as you can even after raising the limit.
 
 **Q. `process.env.X` is not substituted after the build.**
 
@@ -28,6 +33,6 @@ criticalScriptPlugin({
 
 Follow the [TypeScript Setup](./getting-started.md#typescript-setup) section and add the package name to `compilerOptions.types` in `tsconfig.json`.
 
-**Q. Inlining does not apply in dev mode.**
+**Q. The inline script is missing from the page.**
 
-It should work in both dev and production (see [Caveats](#caveats)). If it does not apply, check your vite version and look for hook ordering conflicts with other plugins.
+Check whether the page is rendered only on the client. The inline script is included only when the page is rendered to HTML at build time or on the server. It also appears on a development server that renders through SSR. If it is missing, verify your Vite version and look for hook-ordering conflicts with other plugins.
