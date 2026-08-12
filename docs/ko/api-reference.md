@@ -13,6 +13,7 @@ sidebar:
 |------|------|--------|------|
 | `outputSizeLimit` | `number` | `8192` | 컴파일된 인라인 스크립트의 최대 크기(바이트)입니다. 초과하면 빌드가 실패합니다. |
 | `define` | `Record<string, string>` | `{}` | esbuild 빌드 옵션의 `define`으로 그대로 전달됩니다. 주로 빌드 시 환경 변수를 주입할 때 사용합니다. |
+| `target` | `string \| string[]` | `esnext` | 인라인 스크립트를 변환할 언어 수준 또는 브라우저 버전 (esbuild로 전달). |
 
 ### outputSizeLimit
 
@@ -36,6 +37,20 @@ criticalScriptPlugin({
   },
 })
 ```
+
+### target
+
+인라인 스크립트를 어떤 언어 수준 또는 브라우저 버전까지 변환할지 지정합니다. 해당 옵션은 esbuild로 전달되므로 esbuild가 받는 형식을 모두 사용할 수 있습니다.
+
+```ts
+criticalScriptPlugin({ target: 'es2017' })
+criticalScriptPlugin({ target: ['chrome87', 'safari14'] })
+```
+
+별도로 지정하지 않으면 esbuild 기본값인 `esnext` 가 적용되기 때문에 지원 대상에 맞는 값을 명시적으로 지정하는 것을 권장합니다. `target` 은 문법만 낮춥니다. esbuild 는 API 폴리필을 넣지 않고, 크리티컬 스크립트는 메인 번들보다 먼저 실행되므로 번들이 제공할 변환이나 폴리필에 기댈 수 없습니다.
+
+1. **스크립트가 실행되지 않을 수 있습니다**: 지원하지 않는 문법이나 토큰으로 인해 브라우저에서 스크립트 전체가 실행되지 않을 수 있습니다.
+2. **애플리케이션과 버전을 통일해야합니다**: 구형 브라우저를 지원하고 있다면 인라인 스크립트도 같은 수준까지 낮춰야 안전합니다.
 
 ## `<CriticalScript />` 컴포넌트 Props
 

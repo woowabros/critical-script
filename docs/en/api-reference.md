@@ -13,6 +13,7 @@ sidebar:
 |--------|------|---------|-------------|
 | `outputSizeLimit` | `number` | `8192` | Maximum size (in bytes) of the compiled inline script. Exceeding it fails the build. |
 | `define` | `Record<string, string>` | `{}` | Passed directly to `define` in esbuild's build options. Commonly used to inject environment variables at build time. |
+| `target` | `string \| string[]` | `esnext` | Language or browser versions the inline script is compiled down to (passed to esbuild). |
 
 ### outputSizeLimit
 
@@ -36,6 +37,20 @@ criticalScriptPlugin({
   },
 })
 ```
+
+### target
+
+Language or browser versions the inline script is compiled down to. The value goes straight to esbuild, so it accepts the same forms.
+
+```ts
+criticalScriptPlugin({ target: 'es2017' })
+criticalScriptPlugin({ target: ['chrome87', 'safari14'] })
+```
+
+Leaving it unset applies esbuild's default of `esnext`, so setting a value that matches the browsers you support is recommended. `target` lowers syntax only. esbuild adds no API polyfills, and a critical script runs before the main bundle, so nothing the bundle would have transformed or polyfilled is available to it.
+
+1. **The script may not run at all**: An unsupported syntax or token can stop the whole script from running in the browser.
+2. **Keep the version aligned with the application**: If the application supports older browsers, the inline script has to be compiled down to the same level to be safe.
 
 ## `<CriticalScript />` component props
 

@@ -37,4 +37,51 @@ describe('criticalScriptPlugin', () => {
       runLoad(criticalScriptPlugin({ outputSizeLimit: 1 }), `${fixture('sample.ts')}?as-critical-script`),
     ).rejects.toThrowError(/too large/)
   })
+
+  describe('target', () => {
+    const modern = `${fixture('modern-syntax.ts')}?as-critical-script`
+
+    it('leaves modern syntax intact when unset', async () => {
+      const output = await runLoad(criticalScriptPlugin(), modern)
+
+      expect(output).toContain('?.')
+      expect(output).toContain('??')
+    })
+
+    it('compiles the inline script down to a language target', async () => {
+      const output = await runLoad(criticalScriptPlugin({ target: 'es2015' }), modern)
+
+      expect(output).not.toContain('?.')
+      expect(output).not.toContain('??')
+      expect(output).toContain('window.__critical')
+    })
+
+    it('accepts a list of browser targets', async () => {
+      const output = await runLoad(criticalScriptPlugin({ target: ['chrome58', 'safari11'] }), modern)
+
+      expect(output).not.toContain('?.')
+      expect(output).toContain('window.__critical')
+    })
+
+    it('measures the size limit against the compiled-down output', async () => {
+      // The limit is checked against the compiled script, not the module the
+      // plugin returns, and the wrapper reports that size as data-size.
+      const compiledSize = async (target?: string) =>
+        Number(/'data-size': (\d+)/.exec((await runLoad(criticalScriptPlugin({ target }), modern)) ?? '')?.[1])
+
+      const modernSize = await compiledSize()
+      const loweredSize = await compiledSize('es2015')
+
+      expect(loweredSize).toBeGreaterThan(modernSize)
+
+      // A limit between the two tells the orderings apart: checking it before
+      // the transform ran would let the lowered script through.
+      const between = Math.floor((modernSize + loweredSize) / 2)
+
+      await expect(runLoad(criticalScriptPlugin({ outputSizeLimit: between }), modern)).resolves.toBeDefined()
+      await expect(
+        runLoad(criticalScriptPlugin({ outputSizeLimit: between, target: 'es2015' }), modern),
+      ).rejects.toThrowError(/too large/)
+    })
+  })
 })
