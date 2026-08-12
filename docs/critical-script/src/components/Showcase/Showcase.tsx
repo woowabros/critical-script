@@ -10,8 +10,17 @@ interface Props {
   locale: Locale
 }
 
-/** Long enough to follow a bar with your eye, short enough not to feel like a wait. */
-const SLIDE_MS = 300
+/**
+ * How long the bars take to move, and it depends on who moved them. A reader who works the
+ * switch is owed an answer at once. A chart flipping itself is showing rather than answering,
+ * so it takes its time and the eye can follow a bar across.
+ */
+const HAND_SLIDE_MS = 300
+
+const AUTO_SLIDE_MS = 800
+
+/** Long enough for the reader to take the chart in before it moves under them. */
+const AUTO_AFTER_MS = 800
 
 /** Faint enough to stay in the background, strong enough to measure the gap against. */
 const REFERENCE_OPACITY = 0.3
@@ -46,12 +55,35 @@ export default function Showcase({ locale }: Props): ReactElement {
   const lanes = STAGE_STRINGS[locale]
 
   const [applied, setApplied] = useState(false)
+  /** Whether the chart still owes the reader the one move it makes on its own. */
+  const [auto, setAuto] = useState(true)
+  /** How long the slide that is about to start should take, set by whoever asked for it. */
+  const pace = useRef(AUTO_SLIDE_MS)
   const idle = (step: ShowcaseStep): boolean => !applied && step === 'critical'
   const canvas = useRef<SVGSVGElement>(null)
   const [width, setWidth] = useState(0)
   /** Where the slide has reached: 0 at the run without the plugin, 1 at the run with it. */
   const progress = useRef(0)
   const frame = useRef(0)
+
+  /**
+   * The chart applies the plugin once by itself, a moment after the page settles, so a reader
+   * who never touches anything still sees what the switch is for. Once only: a chart flipping
+   * back and forth on its own is something to escape rather than to read.
+   *
+   * Motion nobody asked for, so a reader who asked for less of it gets the chart standing still
+   * and works the switch themselves. Touching it first cancels the move.
+   */
+  useEffect(() => {
+    if (!auto || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const timer = window.setTimeout(() => {
+      pace.current = AUTO_SLIDE_MS
+      setApplied(true)
+    }, AUTO_AFTER_MS)
+
+    return () => window.clearTimeout(timer)
+  }, [auto])
 
   useEffect(() => {
     const element = canvas.current
@@ -115,7 +147,7 @@ export default function Showcase({ locale }: Props): ReactElement {
     const startedAt = performance.now()
 
     const step = (): void => {
-      const at = Math.min(1, (performance.now() - startedAt) / SLIDE_MS)
+      const at = Math.min(1, (performance.now() - startedAt) / pace.current)
 
       progress.current = from + (target - from) * ease(at)
       paint()
@@ -147,7 +179,11 @@ export default function Showcase({ locale }: Props): ReactElement {
         <input
           checked={applied}
           className={styles.control}
-          onChange={(event) => setApplied(event.target.checked)}
+          onChange={(event) => {
+            pace.current = HAND_SLIDE_MS
+            setAuto(false)
+            setApplied(event.target.checked)
+          }}
           type='checkbox'
         />
         <span aria-hidden='true' className={styles.track} />

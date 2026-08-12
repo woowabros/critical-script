@@ -31,9 +31,6 @@ export default defineConfig({
       // the documentation pages that draw none do not carry it.
       customCss: ['./src/styles/tokens.css', './src/styles/custom.css'],
       defaultLocale: 'en',
-      editLink: {
-        baseUrl: `${repository}/edit/main/docs/critical-script/`,
-      },
       // One dark syntax theme, so no light-mode rules ship at all. one-dark-pro keeps
       // enough hue separation to read on a near-neutral surface, and the chrome is
       // pinned to the palette so a block never looks like a foreign box on the page.

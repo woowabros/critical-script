@@ -14,6 +14,10 @@
 // Nothing is stored and nothing is measured here. Keeping it this dumb is deliberate: a
 // later deploy cannot find it serving anything stale, and changing a preset in the app
 // never means changing this file.
+//
+// It also refuses the browser's own cache, in both directions. A throttled request is fetched
+// from the network, because holding back a response that never travelled measures nothing, and
+// the response it hands over is marked so that nothing keeps it for the next run.
 
 /**
  * Each chunk costs one timer, and a timer is never exact. Sizing chunks by the rate keeps
@@ -95,7 +99,9 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     (async () => {
-      const response = await fetch(event.request)
+      // By URL rather than by passing the request on: a navigation request cannot be rebuilt
+      // with a different cache mode, and every request that gets here is a same-origin GET.
+      const response = await fetch(url, { cache: 'no-store', credentials: 'same-origin' })
       // The body is pulled first so that holding it back is a wait of its own, rather than
       // something the transfer overlaps with.
       const buffer = await response.arrayBuffer()
@@ -106,6 +112,8 @@ self.addEventListener('fetch', (event) => {
 
       // The length still describes the body, but it is arriving in its own time now.
       headers.delete('content-encoding')
+      // Whatever the origin said about caching, a measured run has to start from nothing.
+      headers.set('cache-control', 'no-store')
       headers.set('content-length', String(buffer.byteLength))
       // Says what this worker did to the response, so a check can tell it apart from a
       // request that never reached the worker at all.

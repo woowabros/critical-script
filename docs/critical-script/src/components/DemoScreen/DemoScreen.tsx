@@ -197,6 +197,15 @@ export default function DemoScreen({ variant }: Props): ReactElement {
     let abandoned = false
     let settling = 0
     const { bootWork, locale: pageLocale, run: runId, throttle } = readSettings()
+    /**
+     * Put on every asset this page asks for, so no request is one the browser has answered
+     * before. Chrome can reuse a subresource it already holds without asking the worker at all,
+     * and then the wait the controls asked for never happens.
+     *
+     * The variant is in it as well as the run. The two pages load at once and ask for the same
+     * files, and the one that asks second must not be handed what the first one got.
+     */
+    const fresh = `${runId}-${variant}`
     const framedNow = window.parent !== window
 
     setLocale(pageLocale)
@@ -339,7 +348,7 @@ export default function DemoScreen({ variant }: Props): ReactElement {
       // The rest of the application bundle, which the page cannot act without. The
       // throttling worker holds it back by the amount the controls ask for, so this is a
       // real download and a real evaluation that the browser times like any other.
-      await loadBundle(`${throttled(`${BASE}${BUNDLE_PATH}`, throttle)}&cpu=${bootWork}`)
+      await loadBundle(`${throttled(`${BASE}${BUNDLE_PATH}`, throttle)}&cpu=${bootWork}&fresh=${fresh}`)
 
       if (abandoned) return
 
@@ -387,7 +396,7 @@ export default function DemoScreen({ variant }: Props): ReactElement {
       // rather than in the file the worker never sees. Rendering the screen is what asks
       // for it, so that is where its lane opens.
       learnt.image = { end: null, start: performance.now() }
-      setHome({ ...data, heroImageUrl: throttled(data.heroImageUrl, throttle) })
+      setHome({ ...data, heroImageUrl: `${throttled(data.heroImageUrl, throttle)}&fresh=${fresh}` })
       setStage('ready')
       setMetrics(collected)
 

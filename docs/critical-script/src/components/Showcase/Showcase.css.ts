@@ -38,6 +38,9 @@ globalStyle(`${head} p`, {
 /* Directly under the chart, next to what it changes, rather than as chrome in a corner. */
 export const toggle = style({
   alignItems: 'center',
+  // Nothing here is text to be taken away. Dragging across a switch should not leave a
+  // selection behind, and a double click on the label should still just flip it.
+  userSelect: 'none',
   color: vars.ink1,
   cursor: 'pointer',
   display: 'inline-flex',
