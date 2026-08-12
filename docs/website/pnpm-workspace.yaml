@@ -9,3 +9,6 @@ allowBuilds:
   sharp: true
 
 minimumReleaseAge: 2880
+
+overrides:
+  nanoid: 3.3.17
