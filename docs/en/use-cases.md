@@ -23,7 +23,7 @@ useEffect(() => {
 }, [])
 ```
 
-On major Baemin webview surfaces, this API prefetching pattern reduced LCP (Largest Contentful Paint) time by 30–40% compared with the previous implementation.
+On major Baemin webview screens, this API prefetching pattern reduced LCP (Largest Contentful Paint) time by 30–40% compared with the previous implementation.
 
 ## Preloading Resources Resolved at Runtime
 

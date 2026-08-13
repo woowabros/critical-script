@@ -27,6 +27,10 @@ critical-script 는 React prerender 환경에서 TypeScript 코드를 인라인 
 
 ```bash
 npm install -D @woowabros/vite-plugin-critical-script
+# 또는
+yarn add -D @woowabros/vite-plugin-critical-script
+# 또는
+pnpm add -D @woowabros/vite-plugin-critical-script
 ```
 
 ## 예시
