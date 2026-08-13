@@ -68,7 +68,7 @@ The component automatically sets `suppressHydrationWarning` and attaches a `data
 
 | Framework | Package | Supported versions |
 |-----------|---------|--------------------|
-| [vite](https://github.com/vitejs/vite) | `@woowabros/vite-plugin-critical-script` | 5.x |
+| [Vite](https://github.com/vitejs/vite) | `@woowabros/vite-plugin-critical-script` | 5.x |
 | [react-router](https://github.com/remix-run/react-router) | `@woowabros/vite-plugin-critical-script` | 7.x |
 | [@tanstack/react-start](https://github.com/TanStack/router) | `@woowabros/vite-plugin-critical-script` | 1.x |
 

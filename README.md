@@ -14,13 +14,13 @@
 
 English | [한국어](https://github.com/woowabros/critical-script/blob/main/README-ko_kr.md)
 
-critical-script is a vite plugin that turns TypeScript code into an inline `<script>` tag embedded in prerendered HTML, so that critical work runs before the main JavaScript bundle is loaded.
+critical-script is a Vite plugin that turns TypeScript code into an inline `<script>` tag embedded in prerendered HTML, so that critical work runs before the main JavaScript bundle is loaded.
 
 - Importing a module with `?as-critical-script` produces a React component, and the inline script is embedded when that component is rendered to HTML at build time.
 - Write it in TypeScript and it is type-checked at compile time. esbuild compiles and minifies the result, keeping the inline script as small as possible.
 - It is built for work whose value depends on timing, such as [API prefetching, resource preloading, webview native bridges, and LCP optimization](./docs/en/use-cases.md).
 - The `outputSizeLimit` option, 8192 bytes by default, caps the inline script at build time and fails the build when the limit is exceeded.
-- It works with vite-based React frameworks that prerender HTML, including [react-router](https://github.com/remix-run/react-router) in framework mode and [@tanstack/react-start](https://github.com/TanStack/router).
+- It works with Vite-based React frameworks that prerender HTML, including [react-router](https://github.com/remix-run/react-router) in framework mode and [@tanstack/react-start](https://github.com/TanStack/router).
 - It is used in production on major Baemin webview screens, where this API prefetch pattern cut LCP by 30~40% against the previous implementation.
 
 ## Installation
