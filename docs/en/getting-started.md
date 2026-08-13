@@ -62,7 +62,7 @@ window.__home = fetch('/api/home').then((r) => r.json())
 After the build, it is inlined into the HTML like this (with esbuild minification applied).
 
 ```html
-<script data-size="95">(()=>{performance.mark("critical-start");window.__home=fetch("/api/home").then(r=>r.json())})();</script>
+<script data-size="98">(()=>{performance.mark("critical-start");window.__home=fetch("/api/home").then(e=>e.json());})();</script>
 ```
 
 - The script is wrapped in an IIFE, so it does not pollute the global scope.

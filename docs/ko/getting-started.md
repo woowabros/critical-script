@@ -61,13 +61,9 @@ window.__home = fetch('/api/home').then((r) => r.json())
 
 빌드하면 HTML에 다음과 같이 인라인됩니다.
 
+<!-- prettier-ignore -->
 ```html
-<script data-size="95">
-  ;(() => {
-    performance.mark('critical-start')
-    window.__home = fetch('/api/home').then((r) => r.json())
-  })()
-</script>
+<script data-size="98">(()=>{performance.mark("critical-start");window.__home=fetch("/api/home").then(e=>e.json());})();</script>
 ```
 
 - 스크립트는 IIFE로 래핑되어 전역 스코프에 내부 변수를 노출하지 않습니다.

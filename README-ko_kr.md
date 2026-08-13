@@ -17,7 +17,7 @@
 critical-script 는 React prerender 환경에서 TypeScript 코드를 인라인 `<script>` 태그로 변환해 HTML에 삽입하는 Vite 플러그인입니다. 메인 JavaScript 번들이 로드되기 전에 실행해야 하는 작업을 수행할 수 있습니다.
 
 - `?as-critical-script`를 붙여 import 하면 React 컴포넌트가 생성됩니다. 이 컴포넌트가 빌드 시 HTML로 렌더링되면 인라인 스크립트가 HTML에 삽입됩니다.
-- TypeScript 작성을 지원하여 컴파일 시점에 타입 검사를 받을 수 있습니다. esbuild 가 컴파일과 minify를 수행해 인라인 스크립트를 작은 크기로 유지합니다.
+- TypeScript 작성을 지원하여 컴파일 시점에 타입 검사를 받을 수 있습니다. esbuild가 컴파일과 minify를 수행해 인라인 스크립트를 작은 크기로 유지합니다.
 - [API 프리페치, 리소스 프리로드, 웹뷰 네이티브 브릿지, LCP 최적화](./docs/ko/use-cases.md)처럼 실행 시점이 중요한 작업에 사용할 수 있습니다.
 - `outputSizeLimit` 옵션으로 인라인 스크립트 크기를 제한할 수 있습니다. 기본값은 8192바이트이며, 제한을 초과하면 빌드가 실패합니다.
 - HTML을 prerender하는 Vite 기반 React 프레임워크에서 사용할 수 있습니다. [react-router](https://github.com/remix-run/react-router) 의 Framework mode 와 [@tanstack/react-start](https://github.com/TanStack/router) 를 지원합니다.
@@ -51,14 +51,10 @@ export default function Home() {
 }
 ```
 
+<!-- prettier-ignore -->
 ```html
 <!-- 빌드된 HTML -->
-<script data-size="95">
-  ;(() => {
-    performance.mark('critical-start')
-    window.__home = fetch('/api/home').then((r) => r.json())
-  })()
-</script>
+<script data-size="98">(()=>{performance.mark("critical-start");window.__home=fetch("/api/home").then(e=>e.json());})();</script>
 ```
 
 ## 문서
@@ -68,7 +64,7 @@ export default function Home() {
 
 ## 기여하기
 
-커뮤니티의 모든 분들의 기여를 환영합니다. [기여 가이드](./CONTRIBUTING-ko_kr.md)에서 개발 프로세스와 버그 수정 및 개선 제안 방법, 변경 사항을 빌드하고 테스트 방법을 확인할 수 있습니다.
+커뮤니티 구성원 모두의 기여를 환영합니다. [기여 가이드](./CONTRIBUTING-ko_kr.md)에서 개발 프로세스와 버그 수정 및 개선 제안 방법, 변경 사항을 빌드하고 테스트하는 방법을 확인할 수 있습니다.
 
 <a href="https://github.com/woowabros/critical-script/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=woowabros/critical-script" />

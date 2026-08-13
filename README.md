@@ -51,14 +51,10 @@ export default function Home() {
 }
 ```
 
+<!-- prettier-ignore -->
 ```html
 <!-- built HTML -->
-<script data-size="95">
-  ;(() => {
-    performance.mark('critical-start')
-    window.__home = fetch('/api/home').then((r) => r.json())
-  })()
-</script>
+<script data-size="98">(()=>{performance.mark("critical-start");window.__home=fetch("/api/home").then(e=>e.json());})();</script>
 ```
 
 ## Documentation
