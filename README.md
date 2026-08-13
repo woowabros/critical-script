@@ -21,12 +21,16 @@ critical-script is a vite plugin that turns TypeScript code into an inline `<scr
 - It is built for work whose value depends on timing, such as [API prefetching, resource preloading, webview native bridges, and LCP optimization](./docs/en/use-cases.md).
 - The `outputSizeLimit` option, 8192 bytes by default, caps the inline script at build time and fails the build when the limit is exceeded.
 - It works with vite-based React frameworks that prerender HTML, including [react-router](https://github.com/remix-run/react-router) in framework mode and [@tanstack/react-start](https://github.com/TanStack/router).
-- It is used across Baemin webview surfaces in production, where the API prefetch pattern improved LCP by 30–40% on the commerce webview service.
+- It is used in production on major Baemin webview screens, where this API prefetch pattern cut LCP by 30~40% against the previous implementation.
 
 ## Installation
 
 ```bash
 npm install -D @woowabros/vite-plugin-critical-script
+# or
+yarn add -D @woowabros/vite-plugin-critical-script
+# or
+pnpm add -D @woowabros/vite-plugin-critical-script
 ```
 
 ## Example

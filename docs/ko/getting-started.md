@@ -10,6 +10,8 @@ sidebar:
 ```bash
 npm install -D @woowabros/vite-plugin-critical-script
 # 또는
+yarn add -D @woowabros/vite-plugin-critical-script
+# 또는
 pnpm add -D @woowabros/vite-plugin-critical-script
 ```
 
