@@ -51,20 +51,16 @@ export default function Home() {
 }
 ```
 
+<!-- prettier-ignore -->
 ```html
 <!-- built HTML -->
-<script data-size="95">
-  ;(() => {
-    performance.mark('critical-start')
-    window.__home = fetch('/api/home').then((r) => r.json())
-  })()
-</script>
+<script data-size="98">(()=>{performance.mark("critical-start");window.__home=fetch("/api/home").then(e=>e.json());})();</script>
 ```
 
 ## Documentation
 
 The full documentation, including a benchmark you can run in your browser, is published at
-**[https://woowabros.github.io/critical-script/](https://woowabros.github.io/critical-script/)**.
+**[https://woowabros.github.io/critical-script](https://woowabros.github.io/critical-script/)**.
 
 ## Contributors
 
