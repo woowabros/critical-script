@@ -26,11 +26,10 @@ export default function LiveBenchmark({ locale }: Props): ReactElement {
     <section className={`${styles.root} not-content`}>
       <header className={styles.head}>
         <h2>{strings.title}</h2>
-        <p>{strings.description}</p>
       </header>
 
-      {/* One level down from the heading above, so the notes read as part of this section. */}
-      <BenchmarkStage locale={locale} notesAs='h3' />
+      {/* Under the button rather than under the heading: it says what pressing it will show. */}
+      <BenchmarkStage caption={<p className={styles.caption}>{strings.description}</p>} locale={locale} />
     </section>
   )
 }

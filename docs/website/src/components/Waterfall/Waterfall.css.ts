@@ -41,30 +41,23 @@ export const root = style({
       },
     },
   },
-  marginBlockStart: '0.75rem',
 })
 
 export const row = style({
   display: 'grid',
   gap: `0.35rem ${gutter}`,
-  gridTemplateAreas: `'title title' 'preview lanes'`,
+  gridTemplateAreas: `'preview lanes'`,
   gridTemplateColumns: `${previewW} 1fr`,
   '@media': {
     'screen and (max-width: 40rem)': {
-      gridTemplateAreas: `'preview title' 'lanes lanes'`,
+      gridTemplateAreas: `'preview' 'lanes'`,
       gridTemplateColumns: '1fr',
     },
   },
-  marginBlockStart: '1.4rem',
-})
-
-globalStyle(`${row} > h3`, {
-  color: vars.ink1,
-  fontSize: '0.9375rem',
-  gridArea: 'title',
-  margin: 0,
-  '@media': {
-    'screen and (max-width: 40rem)': { alignSelf: 'center' },
+  // Between one case and the next, rather than before each. The first case begins where the
+  // block begins, so whatever sits above the chart decides the room above it.
+  selectors: {
+    '& + &': { marginBlockStart: '1.4rem' },
   },
 })
 
@@ -73,9 +66,17 @@ globalStyle(`${row} > ${chart.lanes}`, {
 })
 
 export const preview = style({
+  // Hugging the frame rather than stretching with the lanes beside it, so the band below can
+  // measure itself against the picture and land on its foot.
+  alignSelf: 'start',
   gridArea: 'preview',
+  position: 'relative',
   '@media': {
-    'screen and (max-width: 40rem)': { alignSelf: 'center' },
+    'screen and (max-width: 40rem)': {
+      alignItems: 'center',
+      display: 'flex',
+      gap: '0.6rem',
+    },
   },
 })
 
@@ -108,9 +109,43 @@ export const frame = styleVariants({
 globalStyle(`${frameBase} iframe`, {
   blockSize: '420px',
   border: 0,
+  // Nothing in here is to be worked. Out of the tab order already, and out of reach of the
+  // pointer as well, so a click lands on the page rather than inside the picture.
+  pointerEvents: 'none',
   inlineSize: '480px',
   transform: `scale(${previewScale})`,
   transformOrigin: 'top left',
+})
+
+/**
+ * The name of the case, written across the foot of its picture. A band rather than plain text:
+ * it stands on whatever the page happens to be showing there, so it carries its own ground.
+ */
+export const caption = style({
+  background: `color-mix(in oklab, ${vars.surface0} 82%, transparent)`,
+  borderBlockStart: `1px solid ${vars.line}`,
+  color: vars.ink1,
+  fontSize: '0.75rem',
+  fontWeight: 600,
+  insetBlockEnd: 0,
+  insetInline: 0,
+  lineHeight: 1.3,
+  margin: 0,
+  padding: '0.3rem 0.45rem',
+  position: 'absolute',
+  '@media': {
+    // The picture is 84px wide here. A band across it would leave a word to a line, so the
+    // name stands beside it instead and takes the room the lanes are not using.
+    'screen and (max-width: 40rem)': {
+      background: 'none',
+      border: 0,
+      fontSize: '0.8125rem',
+      insetBlockEnd: 'auto',
+      insetInline: 'auto',
+      padding: 0,
+      position: 'static',
+    },
+  },
 })
 
 const waiting = keyframes({
@@ -121,7 +156,7 @@ const dotBase = style({
   blockSize: '0.875rem',
   borderRadius: '50%',
   inlineSize: '0.875rem',
-  insetBlockEnd: '0.3rem',
+  insetBlockStart: '0.3rem',
   insetInlineEnd: '0.3rem',
   position: 'absolute',
 })

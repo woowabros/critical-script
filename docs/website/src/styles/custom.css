@@ -75,6 +75,36 @@ header.header {
   border-radius: 0.35rem;
 }
 
+/* Starlight keeps the language picker out of the header on a narrow screen, and puts one in
+   the mobile menu instead. A page with no sidebar has no such menu, so there the reader is
+   left with no way to switch. It comes back here as its own icon.
+
+   The width has to be `!important`: Starlight writes `--sl-select-width` inline on the label,
+   and nothing but this outranks an inline declaration. The name of the language is pushed out
+   of the box rather than hidden, so the list the control opens is untouched. */
+@media (max-width: 50em) {
+  .right-group {
+    display: flex;
+  }
+
+  /* The one control this makes room for. GitHub already has its place in the hero. */
+  .right-group .social-icons {
+    display: none;
+  }
+
+  .right-group starlight-lang-select label {
+    --sl-select-width: 2.25rem !important;
+  }
+
+  .right-group starlight-lang-select select {
+    text-indent: 2.5rem;
+  }
+
+  .right-group starlight-lang-select .caret {
+    display: none;
+  }
+}
+
 /* Sidebar: pill-shaped active state, quieter inactive rows. */
 .sidebar-content a {
   border-radius: var(--radius-sm);
@@ -207,7 +237,7 @@ header.header {
 /* Landing page. No background glow: it clipped at the content edges and read as a
    rendering artefact rather than as depth. */
 .hero {
-  padding-block: clamp(2rem, 7vw, 5rem);
+  padding-block: clamp(1rem, 3vw, 5rem);
 }
 
 .hero h1 {
@@ -218,14 +248,14 @@ header.header {
 
 .hero .tagline {
   color: var(--ink-2);
-  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
   margin-inline: auto;
   max-width: 42rem;
   text-wrap: balance;
 }
 
 .hero .actions {
-  margin-top: 2rem;
+  margin-top: 0rem;
 }
 
 /* Starlight renders these as .sl-link-button, so the selector has to name that class.

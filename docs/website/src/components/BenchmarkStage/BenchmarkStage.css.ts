@@ -10,6 +10,9 @@ export const controls = style({
   display: 'grid',
   gap: '1.1rem',
   justifyItems: 'start',
+  // The same step the timeline and the notes take, so the three blocks keep one rhythm now
+  // that the controls sit under the cases rather than above them.
+  marginTop: '1.5rem',
 })
 
 export const run = style({
@@ -135,7 +138,7 @@ globalStyle(`${field} p`, {
     'screen and (max-width: 40rem)': { gridColumn: 1 },
   },
   margin: 0,
-  maxInlineSize: '62ch',
+  textWrap: 'balance',
 })
 
 /* The choices beside each setting's name. One row of small buttons, one of them pressed. */
@@ -174,9 +177,8 @@ globalStyle(`${choices} button[disabled]`, {
   opacity: 0.5,
 })
 
-export const timeline = style({
-  marginTop: '2.5rem',
-})
+/* The cases start where the block starts. What is written above them keeps its own room. */
+export const timeline = style({})
 
 /* Shown only when the worker was refused, which makes every wait shorter than asked for. */
 export const warning = style({
@@ -187,27 +189,4 @@ export const warning = style({
   margin: '1.2rem 0 0',
   maxInlineSize: '60ch',
   padding: '0.6rem 0.9rem',
-})
-
-/* How the numbers were arrived at, set apart as an aside rather than as body text. */
-export const notes = style({
-  borderInlineStart: `2px solid ${vars.info}`,
-  marginTop: '2.5rem',
-  paddingInlineStart: '1rem',
-})
-
-globalStyle(`${notes} :is(h2, h3)`, {
-  color: vars.info,
-  fontSize: '0.8125rem',
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase',
-})
-
-globalStyle(`${notes} ul`, {
-  color: vars.ink3,
-  display: 'grid',
-  fontSize: '0.875rem',
-  gap: '0.5rem',
-  margin: '1rem 0 0',
-  paddingInlineStart: '1.1rem',
 })
