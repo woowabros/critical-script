@@ -163,11 +163,6 @@ export default function Showcase({ locale }: Props): ReactElement {
   return (
     // `not-content` keeps Starlight's markdown spacing out of the chart.
     <section className={`${styles.root} not-content`}>
-      <header className={styles.head}>
-        <h2>{strings.title}</h2>
-        <p>{strings.description}</p>
-      </header>
-
       <div className={styles.chart}>
         <svg aria-label={strings.title} className={chart.lanes} ref={canvas} role='img' />
       </div>
@@ -189,6 +184,10 @@ export default function Showcase({ locale }: Props): ReactElement {
         <span aria-hidden='true' className={styles.track} />
         {strings.toggle}
       </label>
+
+      <header className={styles.head}>
+        <p>{strings.description}</p>
+      </header>
 
       <ol className={styles.steps}>
         {SHOWCASE_STEPS.map((step, index) => (

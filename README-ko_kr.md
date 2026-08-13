@@ -64,7 +64,7 @@ export default function Home() {
 ## 문서
 
 브라우저에서 직접 실행하는 벤치마크를 포함한 전체 문서는
-**[https://woowabros.github.io/critical-script](https://woowabros.github.io/critical-script/)** 에서 확인할 수 있습니다.
+**[https://woowabros.github.io/critical-script/ko](https://woowabros.github.io/critical-script/ko)** 에서 확인할 수 있습니다.
 
 ## 기여하기
 

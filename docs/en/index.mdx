@@ -14,28 +14,9 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components'
 import LiveBenchmark from '../website/src/components/LiveBenchmark'
 import Showcase from '../website/src/components/Showcase'
 
 <Showcase client:load locale='en' />
-
-<CardGrid>
-  <Card title='Written in TypeScript' icon='seti:typescript'>
-    Type-checked at compile time, then compiled and minified by esbuild so the inline script stays as small as possible.
-  </Card>
-  <Card title='Enforced at build time' icon='approve-check'>
-    The `outputSizeLimit` option, 8192 bytes by default, fails the build when the inline script grows past the limit.
-  </Card>
-  <Card title='Built for timing' icon='rocket'>
-    For work whose value depends on running early, such as API prefetching, resource preloading, and native webview
-    bridges.
-  </Card>
-  <Card title='Used in production' icon='star'>
-    Used across major Baemin webview screens, where the API prefetch pattern reduced LCP time by 30–40%.
-  </Card>
-</CardGrid>
-
-{/* Hydrated when the reader reaches it, and it loads nothing until they press run. */}
 
 <LiveBenchmark client:visible={{ rootMargin: '300px' }} locale='en' />

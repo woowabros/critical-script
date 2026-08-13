@@ -131,6 +131,10 @@ function Preview({ label, src, state, strings }: PreviewProps): ReactElement {
           <span className={styles.said}>{words[state]}</span>
         </span>
       </div>
+
+      {/* Over the foot of the picture on a wide screen, and beside it on a narrow one, where
+          the picture is too small to carry writing. */}
+      <h3 className={styles.caption}>{label}</h3>
     </div>
   )
 }
@@ -148,7 +152,6 @@ export default function Waterfall({ axis, frameSrc, groups, run, strings }: Prop
     <div className={styles.root}>
       {groups.map((group) => (
         <section className={styles.row} key={group.variant}>
-          <h3>{strings.panel[group.variant]}</h3>
           <Preview
             key={run}
             label={strings.panel[group.variant]}

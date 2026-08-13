@@ -89,8 +89,8 @@ export interface ShowcaseStrings {
 export const SHOWCASE_STRINGS: Record<Locale, ShowcaseStrings> = {
   en: {
     description:
-      "critical-script lets code run at the earliest point in the browser's rendering pipeline at which JavaScript can run. Handling the API calls required for the first render and paint at that point gets content on screen sooner.",
-    gain: '{value}% less LCP time',
+      "critical-script runs TypeScript at the earliest point in the browser's rendering pipeline at which any code can run. Handling the API calls the first render and paint depend on in that inline script is what gets the screen up sooner.",
+    gain: '{value}% faster',
     steps: {
       api: {
         after: 'The response lands earlier by as much as the bundle would have taken to download and run.',
@@ -110,8 +110,8 @@ export const SHOWCASE_STRINGS: Record<Locale, ShowcaseStrings> = {
   },
   ko: {
     description:
-      'critical-script를 사용하면 브라우저 렌더링 파이프라인에서 JavaScript를 가장 빠르게 실행할 수 있는 시점에 코드를 실행할 수 있습니다. 최초 렌더링 및 페인트에 필요한 API 호출을 critical-script에서 처리하면 더 빠른 로딩 속도를 얻을 수 있습니다.',
-    gain: 'LCP 시간 {value}% 단축',
+      'critical-script를 사용하면 브라우저 렌더링 파이프라인에서 TypeScript 코드를 가장 빠른 시점에 코드를 실행할 수 있습니다. 최초 렌더링 및 페인트에 필요한 API 호출을 인라인 스크립트로 처리하면 더 빠른 로딩 속도를 얻을 수 있습니다.',
+    gain: '{value}% 단축',
     steps: {
       api: {
         after: 'JavaScript 번들 다운로드 및 실행을 기다리지 않는 만큼 응답이 빠르게 도착합니다.',
@@ -144,7 +144,7 @@ export interface StageStrings {
   /**
    * Names the group of settings a run is carried out under, which starts out closed. What
    * these settings do is simulate a slow connection, a busy server and a heavy framework;
-   * what the timeline then reports is measured, which is what `simulationTitle` explains.
+   * what the timeline then reports is measured either way.
    */
   conditions: string
   description: string
@@ -152,7 +152,6 @@ export interface StageStrings {
   network: string
   networkHint: string
   networkName: Record<Network, string>
-  notes: string[]
   panel: Record<DemoVariant, string>
   /** Read out for the small preview beside each case, which is otherwise just a colour. */
   previewIdle: string
@@ -164,7 +163,6 @@ export interface StageStrings {
   serverWork: string
   serverWorkBrief: string
   serverWorkHint: string
-  simulationTitle: string
   stalled: string
   throttleMissing: string
   title: string
@@ -177,8 +175,7 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     bootWorkHint:
       'How long the browser spends running the JavaScript bundle once it has downloaded it. It stands in for the time a web application framework such as React spends initializing itself and rendering for the first time.',
     conditions: 'Simulation settings',
-    description:
-      'See how much earlier a screen becomes ready when critical-script starts its API request before the main JavaScript bundle.',
+    description: 'See how quickly a page loads when critical-script handles the API request.',
     lane: {
       api: 'API request',
       critical: 'critical-script runs',
@@ -191,14 +188,6 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     network: 'Network throttling',
     networkHint: 'A service worker stands in for a slow connection.',
     networkName: { 'fast-4g': 'Fast 4G', off: 'No throttling', 'slow-4g': 'Slow 4G' },
-    notes: [
-      'Every number on this page comes from a browser timing API: Navigation Timing for the document, Resource Timing for each request, and the largest contentful paint observer for the marker. Nothing is estimated.',
-      'The conditions are real. A service worker holds each response back for one round trip and then hands the body over at the chosen rate, the way the throttling in browser developer tools does, so the browser records their timing like any other slow request. Pick no throttling to see this host at full speed.',
-      "It shapes the connection, not the clock: a round trip costs the same whichever request pays it, which is why the page that asks earlier finishes earlier. Server processing time is added to that same wait because, from the browser's perspective, time spent processing the request and time spent on a slow network are indistinguishable.",
-      'Framework startup is the bundle holding the page up, not the network: the file has arrived and the page still cannot act. The bundle itself decides when it is ready, so waiting on it is a real dependency rather than a pause the page chose to take.',
-      'The worker only stands between the demo pages and the network. It stores nothing, and it is registered while this page is open and taken back off when you leave.',
-      'The inline script is a build artifact, so these pages only behave this way in the built output, never in a client-only render.',
-    ],
     panel: { with: 'With critical-script', without: 'Without critical-script' },
     previewIdle: 'not loaded yet',
     previewLoading: 'still loading',
@@ -210,7 +199,6 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     serverWorkHint:
       'Adds the delay a server spends on a call of its own, calling other services or waiting on a database, before it starts sending an answer.',
     running: 'Running…',
-    simulationTitle: 'How this is measured',
     stalled: 'A demo page did not report back. Serve the built output and run it again.',
     throttleMissing:
       'This browser could not register the throttling service worker, so both pages ran against the host at full speed. The lanes below are still measured, but they are far shorter than the chosen conditions would make them.',
@@ -223,7 +211,7 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
       '브라우저가 JavaScript 번들을 다운로드한 후 실행을 완료하는 시간입니다. React와 같은 웹 앱 프레임워크의 초기화 및 최초 렌더링 시간을 시뮬레이션합니다.',
     conditions: '시뮬레이션 설정',
     description:
-      'critical-script가 메인 JavaScript 번들보다 먼저 API 요청을 시작할 때 화면이 얼마나 빨리 준비되는지 확인합니다.',
+      'critical-script를 사용하여 API 요청을 처리하였을 때 웹페이자가 얼마나 빠르게 로딩되는지 확인해보세요.',
     lane: {
       api: 'API 요청',
       critical: 'critical-script 실행',
@@ -236,14 +224,6 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     network: '네트워크 스로틀링',
     networkHint: '서비스 워커로 느린 네트워크 환경을 시뮬레이션합니다.',
     networkName: { 'fast-4g': '빠른 4G', off: '제한 없음', 'slow-4g': '느린 4G' },
-    notes: [
-      '이 화면의 모든 수치는 브라우저 타이밍 API에서 측정한 값입니다. 문서는 Navigation Timing, 각 요청은 Resource Timing, 페인트 마커는 Largest Contentful Paint 옵저버로 측정합니다. 추정치는 없습니다.',
-      '네트워크 조건은 실제로 적용됩니다. 서비스 워커가 응답마다 왕복 시간만큼 붙잡아 둔 뒤 지정한 속도로 본문을 넘겨주며, 브라우저 개발자 도구의 네트워크 스로틀링과 같은 방식입니다. 그래서 브라우저는 다른 느린 요청과 마찬가지로 시간을 측정합니다. 제한 없음을 고르면 이 호스트의 최대 속도를 확인할 수 있습니다.',
-      '시계가 아니라 회선 속도를 조절합니다. 왕복 시간은 어떤 요청에도 동일하게 적용되므로, 먼저 요청한 페이지가 먼저 완료됩니다. API 지연 시간도 같은 대기 시간에 더해집니다. 브라우저 관점에서는 서버의 요청 처리 시간과 느린 네트워크로 인한 지연을 구별할 수 없습니다.',
-      '프레임워크 초기화는 네트워크가 아니라 번들이 페이지를 붙잡는 시간입니다. 파일은 이미 도착했는데도 페이지가 일을 시작할 수 없는 구간입니다. 준비 완료를 번들이 직접 알리므로, 이를 기다리는 것은 페이지가 임의로 쉬는 것이 아니라 실제 의존 관계입니다.',
-      '워커는 데모 페이지와 네트워크 사이에만 끼어듭니다. 아무것도 저장하지 않으며, 이 페이지를 여는 동안 등록했다가 떠날 때 해제합니다.',
-      '인라인 스크립트는 빌드 산출물이므로, 이 동작은 빌드된 결과에서만 나타나고 클라이언트에서만 렌더링하는 환경에서는 나타나지 않습니다.',
-    ],
     panel: { with: 'critical-script 적용', without: 'critical-script 미적용' },
     previewIdle: '아직 불러오지 않음',
     previewLoading: '불러오는 중',
@@ -255,7 +235,6 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
     serverWorkHint:
       'API를 호출했을 때 서버에서 다른 서비스를 호출하거나 데이터베이스를 기다리는 데 걸리는 시간을 추가합니다.',
     running: '실행 중…',
-    simulationTitle: '측정 방법',
     stalled: '데모 페이지가 결과를 보내지 못했습니다. 빌드된 결과물을 서빙한 뒤 다시 실행해 주세요.',
     throttleMissing:
       '이 브라우저에서 스로틀링 서비스 워커를 등록하지 못해 두 페이지가 호스트의 최대 속도로 실행되었습니다. 아래 수치는 여전히 실측값이지만, 선택한 조건에서 예상되는 값보다 훨씬 짧습니다.',

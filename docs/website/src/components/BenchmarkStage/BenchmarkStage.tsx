@@ -15,13 +15,9 @@ import { useBenchmark } from './useBenchmark'
 import Waterfall from '../Waterfall'
 
 interface Props {
+  /** A line to sit under the run button, from the page that decided to carry the benchmark. */
+  caption?: ReactNode
   locale: Locale
-  /**
-   * What to write the notes heading as. The page that carries the benchmark decides: on its
-   * own page it follows an `h1`, and inside a section of another page it follows that
-   * section's own heading.
-   */
-  notesAs?: 'h2' | 'h3'
 }
 
 interface FieldProps {
@@ -63,7 +59,7 @@ const DEFAULTS: Conditions = {
   serverWork: DEFAULT_SERVER_WORK,
 }
 
-export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): ReactElement {
+export default function BenchmarkStage({ caption, locale }: Props): ReactElement {
   const strings = STAGE_STRINGS[locale]
 
   const [chosen, setChosen] = useState<Conditions>(DEFAULTS)
@@ -82,14 +78,36 @@ export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): React
   }
 
   const { bootWork, network, serverWork } = chosen
-  const NotesHeading = notesAs
 
   return (
     <div>
+      {/* A run that never came back needs saying somewhere, now that the headline is gone. */}
+      {stalled && (
+        <p aria-live='polite' className={styles.warning}>
+          {strings.stalled}
+        </p>
+      )}
+
+      {/* Kept on screen from the start, empty, so pressing run fills a shape the reader has
+          already seen rather than pushing the page around. */}
+      <section className={styles.timeline}>
+        <Waterfall
+          axis={axis}
+          frameSrc={(variant) => demoPath(variant, { ...applied, lang: locale, run })}
+          groups={timeline}
+          run={run}
+          strings={strings}
+        />
+
+        {throttled === false && <p className={styles.warning}>{strings.throttleMissing}</p>}
+      </section>
+
       <section className={styles.controls}>
         <button className={styles.run} disabled={running} onClick={begin} type='button'>
           {running ? strings.running : run === 0 ? strings.run : strings.rerun}
         </button>
+
+        {caption}
 
         {/* Closed to begin with: the defaults are the interesting case, and the summary says
             what they are without the reader having to open anything. */}
@@ -146,36 +164,6 @@ export default function BenchmarkStage({ locale, notesAs = 'h2' }: Props): React
             </Field>
           </div>
         </details>
-      </section>
-
-      {/* A run that never came back needs saying somewhere, now that the headline is gone. */}
-      {stalled && (
-        <p aria-live='polite' className={styles.warning}>
-          {strings.stalled}
-        </p>
-      )}
-
-      {/* Kept on screen from the start, empty, so pressing run fills a shape the reader has
-          already seen rather than pushing the page around. */}
-      <section className={styles.timeline}>
-        <Waterfall
-          axis={axis}
-          frameSrc={(variant) => demoPath(variant, { ...applied, lang: locale, run })}
-          groups={timeline}
-          run={run}
-          strings={strings}
-        />
-
-        {throttled === false && <p className={styles.warning}>{strings.throttleMissing}</p>}
-      </section>
-
-      <section className={styles.notes}>
-        <NotesHeading>{strings.simulationTitle}</NotesHeading>
-        <ul>
-          {strings.notes.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
       </section>
     </div>
   )

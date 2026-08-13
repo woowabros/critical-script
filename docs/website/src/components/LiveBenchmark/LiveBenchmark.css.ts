@@ -24,9 +24,15 @@ globalStyle(`${head} h2`, {
   margin: 0,
 })
 
+/* The line under the run button, in the same voice as the heading above the chart. */
+export const caption = style({
+  color: vars.ink3,
+  fontSize: '0.875rem',
+  margin: 0,
+})
+
 globalStyle(`${head} p`, {
   color: vars.ink3,
   fontSize: '0.875rem',
   margin: '0.4rem 0 0',
-  maxInlineSize: '62ch',
 })

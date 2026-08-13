@@ -95,8 +95,8 @@ export const THROTTLE_PATH = '/demo-sw.js'
 
 export const DEMO_MESSAGE_SOURCE = 'critical-script-demo'
 
-/** Left to right: the slow path first, so the improvement reads in reading order. */
-export const DEMO_VARIANTS = ['without', 'with'] as const
+/** Top to bottom: what the plugin does first, and what a page does without it underneath. */
+export const DEMO_VARIANTS = ['with', 'without'] as const
 
 /**
  * What the throttling worker is asked for, in the same two terms browser developer tools
