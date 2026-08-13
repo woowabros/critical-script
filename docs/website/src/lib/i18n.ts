@@ -211,7 +211,7 @@ export const STAGE_STRINGS: Record<Locale, StageStrings> = {
       '브라우저가 JavaScript 번들을 다운로드한 후 실행을 완료하는 시간입니다. React와 같은 웹 앱 프레임워크의 초기화 및 최초 렌더링 시간을 시뮬레이션합니다.',
     conditions: '시뮬레이션 설정',
     description:
-      'critical-script를 사용하여 API 요청을 처리하였을 때 웹페이자가 얼마나 빠르게 로딩되는지 확인해보세요.',
+      'critical-script를 사용하여 API 요청을 처리하였을 때 웹페이지가 얼마나 빠르게 로딩되는지 확인해보세요.',
     lane: {
       api: 'API 요청',
       critical: 'critical-script 실행',
