@@ -44,6 +44,3 @@ jobs:
 
       - name: Stage publish
         run: npm stage publish "$RUNNER_TEMP"/*.tgz
-
-      - name: List staged packages
-        run: npm stage list @woowabros/vite-plugin-critical-script
