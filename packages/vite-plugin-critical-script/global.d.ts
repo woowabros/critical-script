@@ -1,7 +1,7 @@
 declare module '*?as-critical-script' {
   import 'react/jsx-runtime'
 
-  interface CriticalScriptProps extends React.HTMLAttributes<HTMLScriptElement> {}
+  interface CriticalScriptProps extends React.ScriptHTMLAttributes<HTMLScriptElement> {}
 
   /**
    * When rendering HTML with React via SSR or SSG in Vite, JS script code is inlined inside the head.
