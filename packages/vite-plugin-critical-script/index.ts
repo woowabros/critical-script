@@ -1,5 +1,7 @@
 import type { Plugin } from 'vite'
 
+import { Buffer } from 'node:buffer'
+
 import dedent from 'dedent'
 import * as esbuild from 'esbuild'
 
@@ -70,14 +72,14 @@ interface Options {
   target?: esbuild.BuildOptions['target']
 }
 
-const wrapScript = (scriptContent: string) =>
+const wrapScript = (scriptContent: string, scriptSize: number) =>
   `
 import { jsx as _jsx } from 'react/jsx-runtime';
 
 export default ({ ...otherProps }) => {
   const props = {
     suppressHydrationWarning: true,
-    'data-size': ${JSON.stringify(scriptContent.length)},
+    'data-size': ${JSON.stringify(scriptSize)},
     dangerouslySetInnerHTML: { __html: ${JSON.stringify(scriptContent)} },
   };
 
@@ -141,15 +143,16 @@ export function criticalScriptPlugin(options: Options = {}): Plugin {
         })
         const file = esbuildResult.outputFiles.shift()
         const fileContent = file?.text ?? `console.warn('No critical script output')`
+        const scriptSize = Buffer.byteLength(fileContent)
 
-        if (fileContent.length > outputSizeLimit) {
+        if (scriptSize > outputSizeLimit) {
           throw new Error(dedent`
-            The compiled critical script is too large, forcing build termination. (Compiled script size: ${fileContent.length})
+            The compiled critical script is too large, forcing build termination. (Compiled script size: ${scriptSize})
             A script that is too large can negatively impact network performance by increasing the size of index.html.
             Please check if too much code is included in the script, and increase outputSizeLimit if necessary. (Current outputSizeLimit: ${outputSizeLimit})
           `)
         }
-        return wrapScript(fileContent)
+        return wrapScript(fileContent, scriptSize)
       },
       order: 'pre',
     },

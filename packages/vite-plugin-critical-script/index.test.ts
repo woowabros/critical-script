@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer'
 import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
@@ -36,6 +37,19 @@ describe('criticalScriptPlugin', () => {
     await expect(
       runLoad(criticalScriptPlugin({ outputSizeLimit: 1 }), `${fixture('sample.ts')}?as-critical-script`),
     ).rejects.toThrowError(/too large/)
+  })
+
+  it('measures the compiled script in UTF-8 bytes', async () => {
+    const id = `${fixture('sample.ts')}?as-critical-script`
+    const output = (await runLoad(criticalScriptPlugin(), id)) ?? ''
+    const script = JSON.parse(/__html: (".*")/.exec(output)?.[1] ?? '""') as string
+    const scriptSize = Buffer.byteLength(script)
+
+    expect(scriptSize).toBeGreaterThan(script.length)
+    expect(output).toContain(`'data-size': ${scriptSize}`)
+    await expect(runLoad(criticalScriptPlugin({ outputSizeLimit: scriptSize - 1 }), id)).rejects.toThrowError(
+      `Compiled script size: ${scriptSize}`,
+    )
   })
 
   describe('target', () => {

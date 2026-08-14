@@ -1,2 +1,2 @@
-// Fixture compiled by esbuild in the plugin tests. Kept tiny on purpose.
+/*! 한글😀 */
 window.__critical = 'ok'
