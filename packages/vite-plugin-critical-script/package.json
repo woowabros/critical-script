@@ -1,6 +1,6 @@
 {
   "name": "@woowabros/vite-plugin-critical-script",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Vite plugin to inline TypeScript modules as critical HTML scripts that run before the main JS bundle — for API prefetch, asset preload, webview bridge, LCP optimization",
   "keywords": [
     "vite",
