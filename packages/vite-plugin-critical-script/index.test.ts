@@ -1,4 +1,3 @@
-import { Buffer } from 'node:buffer'
 import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
@@ -43,7 +42,7 @@ describe('criticalScriptPlugin', () => {
     const id = `${fixture('sample.ts')}?as-critical-script`
     const output = (await runLoad(criticalScriptPlugin(), id)) ?? ''
     const script = JSON.parse(/__html: (".*")/.exec(output)?.[1] ?? '""') as string
-    const scriptSize = Buffer.byteLength(script)
+    const scriptSize = new TextEncoder().encode(script).byteLength
 
     expect(scriptSize).toBeGreaterThan(script.length)
     expect(output).toContain(`'data-size': ${scriptSize}`)

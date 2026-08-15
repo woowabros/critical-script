@@ -1,7 +1,5 @@
 import type { Plugin } from 'vite'
 
-import { Buffer } from 'node:buffer'
-
 import dedent from 'dedent'
 import * as esbuild from 'esbuild'
 
@@ -143,7 +141,7 @@ export function criticalScriptPlugin(options: Options = {}): Plugin {
         })
         const file = esbuildResult.outputFiles.shift()
         const fileContent = file?.text ?? `console.warn('No critical script output')`
-        const scriptSize = Buffer.byteLength(fileContent)
+        const scriptSize = new TextEncoder().encode(fileContent).byteLength
 
         if (scriptSize > outputSizeLimit) {
           throw new Error(dedent`
