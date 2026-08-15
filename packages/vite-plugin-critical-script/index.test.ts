@@ -38,6 +38,19 @@ describe('criticalScriptPlugin', () => {
     ).rejects.toThrowError(/too large/)
   })
 
+  it('measures the compiled script in UTF-8 bytes', async () => {
+    const id = `${fixture('sample.ts')}?as-critical-script`
+    const output = (await runLoad(criticalScriptPlugin(), id)) ?? ''
+    const script = JSON.parse(/__html: (".*")/.exec(output)?.[1] ?? '""') as string
+    const scriptSize = new TextEncoder().encode(script).byteLength
+
+    expect(scriptSize).toBeGreaterThan(script.length)
+    expect(output).toContain(`'data-size': ${scriptSize}`)
+    await expect(runLoad(criticalScriptPlugin({ outputSizeLimit: scriptSize - 1 }), id)).rejects.toThrowError(
+      `Compiled script size: ${scriptSize}`,
+    )
+  })
+
   describe('target', () => {
     const modern = `${fixture('modern-syntax.ts')}?as-critical-script`
 
