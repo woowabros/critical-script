@@ -4,12 +4,17 @@ import { describe, expect, it } from 'vitest'
 
 import { criticalScriptPlugin } from './index'
 
-type LoadObject = { handler: (id: string) => Promise<string | undefined> }
+type LoadObject = { handler: (this: PluginContext, id: string) => Promise<string | undefined> }
+type PluginContext = { warn: (log: unknown) => void }
 
 const fixture = (name: string) => fileURLToPath(new URL(`./__fixtures__/${name}`, import.meta.url))
 
-const runLoad = (plugin: ReturnType<typeof criticalScriptPlugin>, id: string) =>
-  (plugin.load as unknown as LoadObject).handler(id)
+const noopContext: PluginContext = { warn: () => {} }
+
+// Real Vite/Rollup invoke hook handlers with `this` bound to a plugin context
+// exposing `warn`, so tests replicate that instead of calling `handler` bare.
+const runLoad = (plugin: ReturnType<typeof criticalScriptPlugin>, id: string, context = noopContext) =>
+  (plugin.load as unknown as LoadObject).handler.call(context, id)
 
 describe('criticalScriptPlugin', () => {
   it('returns a vite plugin named vite-plugin-critical-script', () => {
@@ -49,6 +54,25 @@ describe('criticalScriptPlugin', () => {
     await expect(runLoad(criticalScriptPlugin({ outputSizeLimit: scriptSize - 1 }), id)).rejects.toThrowError(
       `Compiled script size: ${scriptSize}`,
     )
+  })
+
+  it('forwards esbuild warnings via this.warn()', async () => {
+    const warnings: { message: string }[] = []
+    const context: PluginContext = { warn: (log) => warnings.push(log as { message: string }) }
+
+    await runLoad(criticalScriptPlugin(), `${fixture('import-meta.ts')}?as-critical-script`, context)
+
+    expect(warnings).toHaveLength(1)
+    expect(warnings[0]?.message).toContain('import.meta')
+  })
+
+  it('emits no warnings for a clean compile', async () => {
+    const warnings: unknown[] = []
+    const context: PluginContext = { warn: (log) => warnings.push(log) }
+
+    await runLoad(criticalScriptPlugin(), `${fixture('sample.ts')}?as-critical-script`, context)
+
+    expect(warnings).toHaveLength(0)
   })
 
   describe('target', () => {
