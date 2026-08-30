@@ -139,6 +139,17 @@ export function criticalScriptPlugin(options: Options = {}): Plugin {
           treeShaking: true,
           write: false,
         })
+
+        for (const warning of esbuildResult.warnings) {
+          this.warn({
+            id: filePath,
+            loc: warning.location
+              ? { column: warning.location.column, file: warning.location.file, line: warning.location.line }
+              : undefined,
+            message: warning.text,
+          })
+        }
+
         const file = esbuildResult.outputFiles.shift()
         const fileContent = file?.text ?? `console.warn('No critical script output')`
         const scriptSize = new TextEncoder().encode(fileContent).byteLength
