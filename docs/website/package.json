@@ -14,7 +14,7 @@
     "@astrojs/react": "6.0.2",
     "@astrojs/starlight": "0.41.6",
     "@woowabros/vite-plugin-critical-script": "0.1.0",
-    "astro": "7.1.6",
+    "astro": "7.2.8",
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
     "react": "19.2.8",
